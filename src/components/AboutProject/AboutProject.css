@@ -1,0 +1,137 @@
+.about-project {
+  display: flex;
+  flex-direction: column;
+  margin: 110px 70px;
+  font-family: 'Inter';
+}
+
+.about-project__title {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 27px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #000;
+  color: #000;
+  margin: 0;
+}
+
+.about-project__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  padding-top: 70px;
+}
+
+.about-project__text-box {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: auto;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.about-project__text-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  text-align: left;
+  width: 50%;
+  height: auto;
+  margin: 0;
+}
+
+.about-project__subtitle {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: normal;
+  margin: 0;
+  margin-bottom: 26px;
+}
+
+.about-project__text {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.about-project__progress {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 0;
+  margin-top: 110px;
+  width: 100%;
+  height: 72px;
+  box-sizing: border-box;
+}
+
+.about-project__progress-backend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 25%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.about-project__progress-item_backend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding-bottom: 14px;
+  color: #A0A0A0;
+  background-color: unset;
+  padding: 9px 0;
+}
+
+.about-project__progress-item_toxicgreen {
+  color: #000;
+  background-color: #2BE080;
+} 
+
+.about-project__progress-frontend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 75%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.about-project__progress-item_frontend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding-bottom: 14px;
+  color: #A0A0A0;
+  background-color: unset;
+  padding: 9px 0;
+}
+
+.about-project__progress-item_grey {
+  color: #000;
+  background-color: #F2F2F2;
+}
+
+.about-project__progress-item__padding {
+  padding-top: 14px;
+  padding-bottom: 0;
+}
