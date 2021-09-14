@@ -1,0 +1,94 @@
+.about-me {
+  display: flex;
+  flex-direction: column;
+  padding: 110px 70px;
+}
+
+.about-me__title {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 27px;
+  margin: 0;
+  color: #000;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #000;
+  
+}
+
+.about-me-container {
+  display: grid;
+  grid-template-areas: 'name photo'
+                       'text photo'
+                       'story photo' 
+                       'social photo'; 
+  grid-template-columns: 600px 270px;
+  column-gap: 270px;
+  margin: 66px 0 0 0;
+}
+
+.about-me__name {
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 58px;
+}
+
+.about-me__photo {
+  width: 270px;
+  height: 327px;
+  object-fit: cover;
+  box-sizing: border-box;
+  border-radius: 10px;
+  align-self: flex-end;
+  grid-area: photo;
+}
+
+.about-me__text {
+  margin: 18px 0 0 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  grid-area: text;
+}
+
+.about-me__story {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  margin: 26px 0 0 0;
+  width: 600px;
+  grid-area: story;
+}
+
+.about-me__social {
+  display: flex;
+  grid-area: social;
+  padding: 0;
+  margin: 99px 0 0 0;
+}
+
+.about-me__social-item {
+  list-style: none;
+}
+
+.about-me__social-item:first-child {
+  margin-right: 20px;
+}
+
+.about-me__social-item-link {
+  text-decoration: none;
+  color: #000;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
