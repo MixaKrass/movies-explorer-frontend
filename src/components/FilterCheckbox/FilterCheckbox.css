@@ -1,0 +1,50 @@
+.chechbox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 30px;
+  border-radius: 5px;
+}
+
+.chechbox__toggle{
+  position: relative;
+  margin-right: 14px;
+  cursor: pointer;
+}
+
+.chechbox__input{
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.chechbox__text{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.chechbox__input + .chechbox__span{
+  display: block;
+  background-color: #2BE080;
+  width: 36px;
+  height: 20px;
+  border-radius: 20px;
+}
+
+.chechbox__span:after {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #FFF;
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+

@@ -1,0 +1,21 @@
+.more{
+  width: 100%;
+  display: flex;
+  padding-top: 50px;
+  padding-bottom: 80px;
+  align-self: center;
+}
+
+.more__btn{
+  font-size: 12px;
+  line-height: 15px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  width: 320px;
+  height: 36px;
+  border: none;
+  background-color: #F9F9F9;
+  border-radius: 5px;
+  margin: 0 auto;
+}
