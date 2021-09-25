@@ -1,0 +1,110 @@
+.login{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__container{
+  max-width: 396px;
+  width: 100%;
+}
+
+.login__icon{
+  margin: 70px 0 0;
+  width: 38px;
+  height: 38px;
+}
+
+.login__title{
+  font-family: 'Inter';
+  font-size: 24px;
+  line-height: 29px;
+  font-weight: 500;
+  padding: 40px 0;
+  margin: 0 auto;
+}
+
+.login__form{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.login__label{
+  align-self: flex-start;
+  font-family: 'Inter';
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 400;
+  color: #A0A0A0;
+  margin: 20px 0 10px;
+}
+
+.login__label:first-of-type{
+  margin: 0 0 10px;
+}
+
+.login__input{
+  width: 100%;
+  font-family: 'Inter';
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 400;
+  box-sizing: border-box;
+  border: none;
+  background-color: #F9F9F9;
+  border-radius: 5px;
+  height: 46px;
+}
+
+.login__error{
+  display: none;
+  font-family: 'Inter';
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 400;
+  color: #FF3055;
+}
+
+.login__btn{
+  max-width: 396px;
+  width: 100%;
+  background-color: #3456F3;
+  color: #F9F9F9;
+  height: 45px;
+  border-radius: 2px;
+  border: none;
+  font-family: 'Inter';
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  margin-top: 179px;
+}
+
+.login__btn:hover{
+  cursor: pointer;
+}
+
+.login__text{
+  font-family: 'Inter';
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
+  color: #A0A0A0;
+  text-align: center;
+
+}
+
+.login__link{
+  font-family: 'Inter';
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
+  color: #3456F3;
+  text-decoration: none;
+}
+
+.login__link:hover{
+  cursor: pointer;
+}
