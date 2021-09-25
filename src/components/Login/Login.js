@@ -21,7 +21,7 @@ function Login() {
           <span className='login__error'>Текст ошибки</span>
           <button className='login__btn' type='submit'>Войти</button>
         </form>
-        <p className='login__text'>Ещё не зарегестрированы? <Link to ='/signin' className='login__link'>Регистрация</Link></p>
+        <p className='login__text'>Ещё не зарегестрированы? <Link to ='/signup' className='login__link'>Регистрация</Link></p>
       </div>
     </section>
     </>

@@ -5,11 +5,18 @@
   background-color: #073042;
 }
 
+.header_white{
+ background-color: #FFF;
+}
+
+.header__logo{
+  cursor: pointer;
+}
+
 .header__button-register{
   outline: none;
   border: none;
   background-color: transparent;
-  color: #FFF;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
@@ -31,4 +38,20 @@
   height: 32px;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.header__button-login:hover {
+  opacity: 80%;
+  cursor: pointer;
+}
+
+.header__link{
+  text-decoration: none;
+  outline: none;
+  color: #FFF
+}
+
+.header__link:hover{
+  cursor: pointer;
+  opacity: 70%;
 }

@@ -1,0 +1,21 @@
+.navtab__button {
+  width: 129px;
+  height: 36px;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #FFF;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 146px;
+}
+
+.navtab__button:hover{
+  cursor: pointer;
+  opacity: 80%;
+}

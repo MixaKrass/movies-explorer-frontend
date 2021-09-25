@@ -45,10 +45,13 @@
 .techs__researched {
   width: 690px;
   display: flex;
-  justify-content: space-between;
-  align-content: center;
-  margin: 100px 225px;
-  padding: 0;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 10px;
+  box-sizing: border-box;
+  padding: 100px 225px;
+  margin: 0;
 }
 
 .techs__researched-item {
@@ -57,7 +60,6 @@
   height: 60px;
   background-color: #E8E8E8;
   border-radius: 15px;
-  font-family: 'Inter';
   font-style: normal;
   font-weight: normal;
   text-align: center;
@@ -67,4 +69,31 @@
   padding: 21px 0;
   margin: 0;
   color: #000;
+}
+
+@media screen and (max-width: 768px) {
+  .techs{
+    padding: 90px 60px;
+  }
+
+  .techs-title{
+    font-size: 22px;
+    line-height: 27px;
+  }
+
+  .techs-subtitle{
+    font-size: 50px;
+    line-height: 58px;
+    padding-top: 80px;
+  }
+
+  .techs__text{
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .techs__researched-item{
+    width: 84px;
+    height: 57px;
+  }
 }

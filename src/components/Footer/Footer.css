@@ -52,6 +52,11 @@
   margin-right: 20px;
 }
 
+.footer__links-item:hover{
+  cursor: pointer;
+  opacity: 70%;
+}
+
 .footer__link {
   text-decoration: none;
   color: #000;
