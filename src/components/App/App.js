@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -7,6 +8,7 @@ import Movies from '../Movies/Movies'
 import Profile from '../Profile/Profile'
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   return (
@@ -37,6 +39,9 @@ function App() {
             </Route>
             <Route exact path="/signin">
               <Login />
+            </Route>
+            <Route exact path="*">
+              <NotFound />
             </Route>
         </Switch>
       </div>
