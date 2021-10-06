@@ -10,7 +10,7 @@ function Navigation() {
           <Link to='/movies' className='navigation__movies'>Фильмы</Link>
         </li>
         <li className='navigation__links-item'>
-          <Link to='/movies' className='navigation__savedmovies'>Сохранённые фильмы</Link>
+          <Link to='/movies' className='navigation__saved-movies'>Сохранённые фильмы</Link>
         </li>
       </ul>
     </div>

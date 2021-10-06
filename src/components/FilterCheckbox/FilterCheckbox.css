@@ -48,3 +48,23 @@
   right: 6px;
 }
 
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  .chechbox{
+    padding: 0 20px;
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .chechbox{
+    margin: 45px auto;
+  }
+
+  .chechbox__text{
+    font-size: 11px;
+  }
+
+  .chechbox__toggle{
+    margin-right: 13px;
+  }
+}

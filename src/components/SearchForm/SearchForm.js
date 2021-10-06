@@ -12,7 +12,7 @@ function SearchForm() {
           <img className='search-form__lupa' alt="Лупа" src={Lupa} />
           <input className='search_form__input' type="text" placeholder="Фильм" required />
           <button type='submit' className='search-form__button'>
-            <img className="search-forn__find" alt="Кнопка" src={FindButton} />
+            <img className="search-form__find" alt="Кнопка" src={FindButton} />
           </button>
         </div>
        </form>

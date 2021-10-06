@@ -18,16 +18,21 @@ function Header () {
       {pathname==='/' ? '' : <Navigation />}
         </div>
         <div className={`header__packet ${pathname==='/' ? '' : 'header__packet_burger'}`} >
-          <Link to={`${pathname==='/' ? '/signup' : '/profile'}`} className='header__signin-text'>
+          <Link to={`${pathname==='/' ? '/signup' : '/profile'}`} className='header__signin-text header__link'>
             {text}
           </Link>
           {pathname==='/' ? (
-            <Link to='/signin' className='header__signin-btn' type='button'>Войти</Link>
+            <Link to='/signin' className='header__signin-btn header__link' type='button'>Войти</Link>
           ) : (
             <button className='header__btn-acc' type='button' />
           )}
         </div>
-        
+        {pathname === '/' ? (
+          '' ) : (
+            <>
+              
+            </>
+        )}
       </div>
     </section>
   )
