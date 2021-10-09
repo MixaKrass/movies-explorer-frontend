@@ -31,7 +31,7 @@
 
 .chechbox__input + .chechbox__span{
   display: block;
-  background-color: #2BE080;
+  background-color: #EBEBEB;
   width: 36px;
   height: 20px;
   border-radius: 20px;
@@ -45,8 +45,18 @@
   content: '';
   position: absolute;
   top: 6px;
-  right: 6px;
+  left: 6px;
 }
+
+.chechbox__input:checked + .chechbox__span{
+  background-color: #2BE080;
+}
+
+.chechbox__input:checked + .chechbox__span:after {
+  right: calc(100% - 16px);
+  transform: translateX(200%);
+}
+
 
 @media screen and (min-width: 768px) and (max-width: 1200px) {
   .chechbox{

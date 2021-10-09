@@ -1,9 +1,10 @@
 .more{
+  max-width: 1280px;
   width: 100%;
   display: flex;
   padding-top: 50px;
   padding-bottom: 80px;
-  align-self: center;
+  align-items: center;
 }
 
 .more__btn{

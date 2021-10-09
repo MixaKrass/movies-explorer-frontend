@@ -17,6 +17,14 @@ function MoviesCardList() {
             <MoviesCard />
             <MoviesCard />
           </Route>
+          <Route exact path='/saved-movies'>
+            <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
+          </Route>
         </Switch>
       </section>
         <More />

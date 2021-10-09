@@ -8,6 +8,7 @@ function Movies() {
   return (
     <div className='movies'>
       <SearchForm />
+      <Preloader />
       <MoviesCardList />
     </div>
   )

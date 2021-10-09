@@ -40,14 +40,15 @@
 .moviesCard__save{
   cursor: pointer;
   position: absolute;
+  padding-top: 19px;
+  margin-right: 14px;
   right: 0;
-  background: url('../../images/saveBtn.svg');
+  background-image: url('../../images/saveBtn.svg');
   background-repeat: no-repeat;
   width: 30px;
   height: 30px;
   border: none;
-  padding-top: 19px;
-  padding-right: 14px;
+  background-color: transparent;
 }
 
 .moviesCard__save_saved{
@@ -55,7 +56,17 @@
 }
 
 .moviesCard__delete{
-
+  background-image: url('../../images/movies-delete.svg');
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  padding-top: 19px;
+  padding-right: 14px;
+  right: 0;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  border: none;
 }
 
 .moviesCard__image{
