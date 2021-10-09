@@ -61,7 +61,7 @@
   cursor: pointer;
   position: absolute;
   padding-top: 19px;
-  padding-right: 14px;
+  margin-right: 14px;
   right: 0;
   background-repeat: no-repeat;
   width: 30px;
