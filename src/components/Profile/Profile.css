@@ -75,3 +75,9 @@
   background-color: #fff;
   color: #FF3055;
 }
+
+@media screen and (max-width: 520px) {
+  .profile__container{
+    max-width: 260px;
+  }
+}

@@ -36,3 +36,21 @@
   cursor: pointer;
   color: #3456F3;
 }
+
+@media screen and (max-width: 767px) {
+  .not-found__err{
+    font-size: 80px;
+    line-height: 97px;
+  }
+
+  .not-found__text{
+    font-size: 12px;
+    line-height: 14.5px;
+    padding-top: 10px;
+  }
+
+  .not-found__back{
+    font-size: 12px;
+    line-height: 14.5px;
+  }
+}

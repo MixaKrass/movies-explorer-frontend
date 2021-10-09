@@ -9,11 +9,11 @@ function Profile() {
         <form className='profile__form'>
           <label className='profile__label'>
             Имя
-            <input className='profile__input' placeholder='name' />
+            <input className='profile__input' placeholder='name' id='name' />
           </label>
           <label className='profile__label'>
             Email
-            <input className='profile__input' placeholder='email' />
+            <input className='profile__input' placeholder='email' id='email' />
           </label>
           <button className='profile__btn-edit' type='submit'>
             Редактировать

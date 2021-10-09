@@ -11,6 +11,11 @@ function MoviesCardList() {
         <Switch>
           <Route exact path='/movies'>
             <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
           </Route>
         </Switch>
       </section>

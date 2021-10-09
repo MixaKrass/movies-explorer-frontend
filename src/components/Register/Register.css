@@ -6,6 +6,8 @@
 }
 
 .register__container{
+  display: flex;
+  flex-direction: column;
   max-width: 396px;
   width: 100%;
 }
@@ -28,6 +30,7 @@
 .register__form{
   display: flex;
   flex-direction: column;
+  width: 100%;
 
 }
 
@@ -107,4 +110,41 @@
 
 .register__link:hover{
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .register__container{
+    padding-top: 162px;
+  }
+
+  .register__title{
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .register__container{
+    max-width: 260px;
+    align-items: center;
+    padding: 0;
+  }
+
+  .register__icon{
+    margin: 56px 0 0;
+  }
+
+  .register__title{
+    padding: 50px 0 80px;
+  }
+
+  .register__btn{
+    font-size: 12px;
+    line-height: 14.5px;
+    margin-top: 157px;
+  }
+
+  .register__text{
+    font-size: 12px;
+    line-height: 14.5px;
+  }
 }

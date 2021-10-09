@@ -1,6 +1,5 @@
 import React from "react";
 import './Footer.css';
-import { Link } from 'react-router-dom';
 
 function Footer() {
   return(
@@ -10,13 +9,13 @@ function Footer() {
         <li className='footer__year'>&copy; 2021</li>
           <ul className='footer__links'>
             <li className='footer__links-item'>
-              <Link href='#' className='footer__link' targer='_blank'>Яндекс.Практикум</Link>
+              <a href='#' className='footer__link' targer='_blank'>Яндекс.Практикум</a>
             </li>
             <li className='footer__links-item'>
-              <Link href='https://github.com/MixaKrass' className='footer__link' targer='_blank'>Github</Link>
+              <a href='https://github.com/MixaKrass' className='footer__link' targer='_blank'>Github</a>
             </li>
             <li className='footer__links-item'>
-              <Link href='https://www.facebook.com/profile.php?id=100007770815083' className='footer__link' targer='_blank'>Facebook</Link>
+              <a href='https://www.facebook.com/profile.php?id=100007770815083' className='footer__link' targer='_blank'>Facebook</a>
             </li>
           </ul>
       </ul>

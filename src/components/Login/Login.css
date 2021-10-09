@@ -6,6 +6,8 @@
 }
 
 .login__container{
+  display: flex;
+  flex-direction: column;
   max-width: 396px;
   width: 100%;
 }
@@ -27,6 +29,7 @@
 .login__form{
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .login__label{
@@ -81,7 +84,6 @@
 }
 
 .login__text{
-  
   font-size: 14px;
   line-height: 17px;
   font-weight: 400;
@@ -100,4 +102,41 @@
 
 .login__link:hover{
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .login__container{
+    padding-top: 162px;
+  }
+
+  .login__title{
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .login__container{
+    max-width: 260px;
+    align-items: center;
+    padding: 0;
+  }
+
+  .login__icon{
+    margin: 56px 0 0;
+  }
+
+  .login__title{
+    padding: 50px 0 80px;
+  }
+
+  .login__btn{
+    font-size: 12px;
+    line-height: 14.5px;
+    margin-top: 267px;
+  }
+
+  .login__text{
+    font-size: 12px;
+    line-height: 14.5px;
+  }
 }
