@@ -27,7 +27,14 @@ function MoviesCardList() {
           </Route>
         </Switch>
       </section>
-        <More />
+      <section>
+        <Switch>
+          <Route exact path='/movies'>
+            <More />
+          </Route>
+        </Switch>
+      </section>
+
     </>
   )
 }
