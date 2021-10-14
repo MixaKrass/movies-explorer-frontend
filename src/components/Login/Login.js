@@ -8,11 +8,7 @@ function Login(props) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const handlePathChange = (newPath) => {props.onPathChange(newPath)};
-
-  React.useEffect(() => {
-    handlePathChange('/sign-in')
-  },);
+  
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -36,10 +32,10 @@ function Login(props) {
         </Link>
         <h3 className='login__title'>Рады видеть!</h3>
         <form className='login__form' onSubmit={handleSubmit} >
-          <label className='login__label' for='email'>Email</label>
+          <label className='login__label' htmlFor='email'>Email</label>
           <input className='login__input' onChange={handleEmailChange} type='email' id='signin-email' required />
           <span className='login__error'>Текст ошибки</span>
-          <label className='login__label' for='password'>Пароль</label>
+          <label className='login__label' htmlFor='password'>Пароль</label>
           <input className='login__input' onChange={handlePasswordChange} type='password' id='signin-password' required />
           <span className='login__error'>Текст ошибки</span>
           <button className='login__btn' type='submit'>Войти</button>
