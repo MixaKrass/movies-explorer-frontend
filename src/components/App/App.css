@@ -1,0 +1,7 @@
+.page {
+  font-family: 'Inter', 'Areal', 'Helvetica', 'sans-serif';
+  max-width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
