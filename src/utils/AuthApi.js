@@ -2,7 +2,6 @@ export const BASE_URL = 'https://api.mixakras.films.nomoredomains.club';
 
 export const register = ({email, password, name}) => {
   return fetch(`${BASE_URL}/signup`, {
-    mode: 'no-cors',
     method: 'POST',
     headers: {
       'Accept': 'application/json',
