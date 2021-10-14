@@ -51,7 +51,7 @@ function App() {
     .catch((err) => console.log(err));
   } */
 
-  const test = (email, password, name) => {
+   /* const test = (email, password, name) => {
     fetch(`https://api.mixakras.films.nomoredomains.club/signup`, {
       method: 'POST',
       body: JSON.stringify({
@@ -61,7 +61,9 @@ function App() {
       })
     })
   }
-  test(  )
+  test(  ) 
+
+  */
 
   // обработчик регистрации
   const onRegister = (email, password, name) => {
