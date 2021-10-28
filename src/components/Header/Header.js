@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import iconProfile from '../../images/account-people.svg';
 import useMediaQuery from 'react-use-media-query-hook';
 
-function Header ({ isLoggedIn }) {
+function Header ({ loggedIn }) {
   const isTablet = useMediaQuery('(min-width:769px)');
   const location = useLocation();
   const isLand = location.pathname === '/';
@@ -19,12 +19,12 @@ function Header ({ isLoggedIn }) {
   }
 
   return (
-    <section className={`header ${!isLoggedIn ? 'header_black' : ''}`}>
+    <section className={`header ${!loggedIn ? 'header_black' : ''}`}>
       <div className='header__container'>
         <Link to='/'> 
           <img className="header__logo" alt='Логотип' src={logo} />
         </Link>
-        {isLoggedIn ? (
+        {loggedIn ? (
           <>
             {isTablet ? (
               <nav className='header__nav'>

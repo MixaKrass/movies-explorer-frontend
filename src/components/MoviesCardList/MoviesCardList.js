@@ -7,35 +7,34 @@ import More from "../More/More";
 function MoviesCardList() {
   return (
     <>
-      <section className='movies-list'>
-        <Switch>
-          <Route exact path='/movies'>
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-          </Route>
-          <Route exact path='/saved-movies'>
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-          </Route>
-        </Switch>
-      </section>
-      <section>
-        <Switch>
-          <Route exact path='/movies'>
-            <More />
-          </Route>
-        </Switch>
-      </section>
-
-    </>
+        <section className='movies-list'>
+          <Switch>
+            <Route exact path='/movies'>
+              <MoviesCard />
+              <MoviesCard />
+              <MoviesCard />
+              <MoviesCard />
+              <MoviesCard />
+              <MoviesCard />
+            </Route>
+            <Route exact path='/saved-movies'>
+              <MoviesCard />
+              <MoviesCard />
+              <MoviesCard />
+              <MoviesCard />
+              <MoviesCard />
+              <MoviesCard />
+            </Route>
+          </Switch>
+        </section>
+        <section>
+          <Switch>
+            <Route exact path='/movies'>
+              <More />
+            </Route>
+          </Switch>
+        </section>
+      </>
   )
 }
 

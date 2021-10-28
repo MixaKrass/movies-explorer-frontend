@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Route, Switch, useHistory} from 'react-router-dom';
+import { Route, Switch, useHistory, Redirect} from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
-import Movies from '../Movies/Movies';
-import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFound from '../NotFound/NotFound';
@@ -13,17 +11,31 @@ import * as auth from '../../utils/AuthApi';
 import { getMovies } from '../../utils/MoviesApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import MoviesPage from '../MoviesPage/MoviesPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
+import SavedMoviesPage from '../SavedMoviesPage/SavedMoviesPage';
 
 
 function App() {
   const history = useHistory();
-  const [LoggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [movies, setMovies] = useState([]);
   const jwt = localStorage.getItem('jwt');
   const [currentUser, setCurrentUser] = useState({});
  
+  useEffect(() => {
+    if (loggedIn) {
+      Promise.all([getMovies()])
+      .then(([moviesData]) => {
+        setMovies(moviesData);
+      })
+      .catch((err) => console.log(err));
+    }
+  }, [loggedIn]);
+
 
 // проверка jwt  
- /* useEffect(() => {
+ useEffect(() => {
     if (jwt) {
       auth.tokenCheck(jwt)
       .then((res) => {
@@ -39,7 +51,7 @@ function App() {
   }, []);
 
   // обработчик авторизации
-   const handleSigninSubmit = (email, password) => {
+   const onLogin = (email, password) => {
     auth.authorization (email, password)
     .then((data) => {
       if(data.token){
@@ -49,26 +61,13 @@ function App() {
       }
     })
     .catch((err) => console.log(err));
-  } */
+  } 
 
-  /* const test = (email, password, name) => {
-    fetch(`https://api.mixakras.films.nomoredomains.club/signup`, {
-      method: 'POST',
-      body: JSON.stringify({
-        "email": 'Test12345@gmail.com',
-        "password": '123456789' ,
-        "name": 'Mixa123456789'
-      })
-    })
-  }
-  test(  )  */
-
-  
 
   // обработчик регистрации
-  const onRegister = ({email, name , password}) => {
-    console.log(email, name , password)
-    auth.register({email, name , password}) 
+  const onRegister = ({email, password, name}) => {
+    console.log(email, password, name)
+    auth.register({email, password, name}) 
     .then(() => {
         history.push('/signin');
     })
@@ -88,29 +87,39 @@ function App() {
       <div className='page'>
         <Switch>
           <Route exact path="/">
-            <Header isLoggedIn={false}  />
+            <Header loggedIn={loggedIn} />
             <Main />
             <Footer />
           </Route>
-            <Route exact path="/movies">
-              <Header isLoggedIn={true}  />
-              <Movies />
-              <Footer />
-            </Route>
-            <Route exact path="/saved-movies">
-              <Header isLoggedIn={true} />
-              <Movies />
-              <Footer />
-            </Route>
-            <Route exact path="/profile">
-              <Header isLoggedIn={true} />
-              <Profile />
-            </Route>
+          <ProtectedRoute exact path="/movies" 
+            loggedIn={loggedIn} 
+            component={MoviesPage}
+            movies={movies}
+          />
+          <ProtectedRoute exact path="/saved-movies"
+            loggedIn={loggedIn} 
+            component={SavedMoviesPage}
+          /> 
+            <ProtectedRoute 
+            exact 
+            path="/profile" 
+            loggedIn={loggedIn}
+            component={ProfilePage}
+            />
             <Route exact path="/signup">
-              <Register onRegister={onRegister} />
+              {!loggedIn ? (
+                <Register onRegister={onRegister} />
+              ) : (
+                <Redirect to='/movies' />
+              )}
             </Route>
             <Route exact path="/signin">
-              <Login />
+              {!loggedIn ? (
+              <Login onLogin={onLogin} />
+              ) : (
+                <Redirect to='/movies' />
+              )}
+              
             </Route>
             <Route exact path="*">
               <NotFound />

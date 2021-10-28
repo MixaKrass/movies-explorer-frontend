@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
 import "./Login.css"
 
-function Login(props) {
+function Login({onLogin}) {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -20,7 +20,7 @@ function Login(props) {
 
   const handleSubmit = (e) => {
   e.preventDefault();
-  props.onSignin(email, password);
+  onLogin(email, password);
 }
 
   return (

@@ -4,7 +4,6 @@ export const register = ({email, password, name}) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
@@ -24,10 +23,9 @@ export const register = ({email, password, name}) => {
   })
 }
 
-/* export const authorization = (email, password) => {
+export const authorization = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
-    mode: 'no-cors',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -58,4 +56,4 @@ export const tokenCheck = (token) => {
       return Promise.reject(res.status)
     }
   })
-} */
+} 
