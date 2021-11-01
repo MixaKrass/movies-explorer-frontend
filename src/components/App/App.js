@@ -8,8 +8,9 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFound from '../NotFound/NotFound';
 import * as auth from '../../utils/AuthApi';
+import mainApi from '../../utils/MainApi';
 import { getMovies } from '../../utils/MoviesApi';
-import CurrentUserContext from '../../contexts/CurrentUserContext';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import MoviesPage from '../MoviesPage/MoviesPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
@@ -22,25 +23,18 @@ function App() {
   const [movies, setMovies] = useState([]);
   const jwt = localStorage.getItem('jwt');
   const [currentUser, setCurrentUser] = useState({});
+  // const [savedMovies, setSavedMovies] = useState([]);
+  // const [savedMoviesId, setSavedMoviesId] = useState([]);
  
-  useEffect(() => {
-    if (loggedIn) {
-      Promise.all([getMovies()])
-      .then(([moviesData]) => {
-        setMovies(moviesData);
-      })
-      .catch((err) => console.log(err));
-    }
-  }, [loggedIn]);
-
 
 // проверка jwt  
  useEffect(() => {
     if (jwt) {
       auth.tokenCheck(jwt)
       .then((res) => {
-        if (res.data) {
+        if (res) {
           setLoggedIn(true);
+          setCurrentUser(res);
         }
       })
       .catch((err) => {
@@ -48,7 +42,7 @@ function App() {
         history.push('/signin');
       })
     }
-  }, []);
+  }, [loggedIn]);
 
   // обработчик авторизации
    const onLogin = (email, password) => {
@@ -77,8 +71,19 @@ function App() {
   // обработчик завершения
   const handleLogout = () => {
     localStorage.removeItem('jwt');
+    setCurrentUser({});
     setLoggedIn(false);
     history.push('/');
+  }
+
+  // обработчик информации о пользователе
+  const handleUpdateUser = (name, email) => {
+    mainApi.patchProfileInfo({name, email})
+    .then((data) => {
+      console.log(data)
+      setCurrentUser(data);
+    })
+    .catch((err) => console.log(err));
   }
 
   return (
@@ -101,10 +106,12 @@ function App() {
             component={SavedMoviesPage}
           /> 
             <ProtectedRoute 
-            exact 
-            path="/profile" 
-            loggedIn={loggedIn}
-            component={ProfilePage}
+              exact 
+              path="/profile" 
+              loggedIn={loggedIn}
+              component={ProfilePage}
+              handleLogout={handleLogout}
+              handleUpdateUser={handleUpdateUser}
             />
             <Route exact path="/signup">
               {!loggedIn ? (

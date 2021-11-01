@@ -17,7 +17,7 @@ function Register({onRegister}) {
     setPassword(e.target.value);
   }
 
-  const handleName = (e) => {
+  const handleNameChange = (e) => {
     setName(e.target.value);
   }
 
@@ -38,7 +38,7 @@ function Register({onRegister}) {
         <h3 className='register__title'>Добро пожаловать!</h3>
         <form className='register__form' onSubmit={handleSubmit} >
           <label className='register__label' htmlFor='name'>Имя</label>
-          <input className='register__input' type='text' id='name' onChange={handleName} value={name} />
+          <input className='register__input' type='text' id='name' onChange={handleNameChange} value={name} />
           <span className='register__error'>Текст ошибки</span>
           <label className='register__label' htmlFor='email'>Email</label>
           <input className='register__input' type='email' id='signup-email' onChange={handleEmailChange} value={email} />
