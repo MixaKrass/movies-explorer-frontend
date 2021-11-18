@@ -1,10 +1,16 @@
 import "./FilterCheckbox.css";
 
-function FilterCheckbox() {
+function FilterCheckbox({ handleFilter, setCheckboxFilter, checkboxFilter }) {
+
+  const handleChangeFilter = (evt) => {
+    setCheckboxFilter(!checkboxFilter);
+    handleFilter(evt.target.checked);
+  }
+
   return (
     <div className='chechbox'>
         <label className='chechbox__toggle'>
-          <input className='chechbox__input' type='checkbox' />
+          <input onChange={handleChangeFilter} className='chechbox__input' type='checkbox' />
           <span className='chechbox__span'></span>
         </label>
       <p className='chechbox__text'>Короткометражки</p>

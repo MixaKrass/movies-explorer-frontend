@@ -1,5 +1,8 @@
-export const getMovies = () => {
-  return fetch("https://api.nomoreparties.co/beatfilm-movies", {
+const baseUrl = 'https://api.nomoreparties.co/beatfilm-movies';
+
+export function getFirstMovies() {
+  return fetch(baseUrl, {
+    method: 'GET',
     headers : { "Content-Type": "application/json"},
   })
   .then((res) => {
@@ -8,4 +11,7 @@ export const getMovies = () => {
     }
     return Promise.reject(res.status);
   })
+  .catch((err) => {
+    console.log(err);
+  });
 }

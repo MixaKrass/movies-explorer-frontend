@@ -13,10 +13,10 @@ function AboutMe() {
           <p className='about-me__story' >Я родился и живу в Воронеже, закончил химический факультет в ВГУ. Я люблю слушать музыку, а ещё увлекаюсь видео. Недавно начал кодить. </p>
           <ul className='about-me__social'>
             <li className='about-me__social-item'>
-              <a href='https://www.facebook.com/profile.php?id=100007770815083' className='about-me__link' target='_blank'>Facebook</a>
+              <a href='https://www.facebook.com/profile.php?id=100007770815083' className='about-me__link' target='_blank' rel='noreferrer'>Facebook</a>
             </li>
             <li className='about-me__social-item'>
-              <a href='https://github.com/MixaKrass' className='about-me__link' target='_blank'>Github</a>
+              <a href='https://github.com/MixaKrass' className='about-me__link' target='_blank' rel='noreferrer'>Github</a>
             </li>
           </ul>
         </div>

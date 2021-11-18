@@ -3,38 +3,39 @@ import './MoviesCardList.css';
 import { Switch, Route } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import More from "../More/More";
+import { useLocation } from "react-router-dom";
+import { useState } from 'react';
 
-function MoviesCardList() {
+function MoviesCardList({movies, savedMovies, isSaved}) {
+  
+  const [currentUserBox, setCurrentUserBox] = useState([]);
+  const { pathname } = useLocation();
   return (
-    <>
-        <section className='movies-list'>
-          <Switch>
-            <Route exact path='/movies'>
-              <MoviesCard />
-              <MoviesCard />
-              <MoviesCard />
-              <MoviesCard />
-              <MoviesCard />
-              <MoviesCard />
-            </Route>
-            <Route exact path='/saved-movies'>
-              <MoviesCard />
-              <MoviesCard />
-              <MoviesCard />
-              <MoviesCard />
-              <MoviesCard />
-              <MoviesCard />
-            </Route>
-          </Switch>
-        </section>
-        <section>
+        <ul className='movies-list'>
+            {movies.map((movie) => {
+              return (
+                    <MoviesCard
+                      isSaved = {isSaved}
+                      key={isSaved ? movie._id : movie.id}
+                      movie={movie}
+                      savedMovies={savedMovies}
+                    />
+              )
+            })}
+                  
+                    
+                  
+                
+             
+        </ul>
+      /*  <section>
           <Switch>
             <Route exact path='/movies'>
               <More />
             </Route>
           </Switch>
-        </section>
-      </>
+        </section> */
+      
   )
 }
 

@@ -3,12 +3,16 @@ import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-function SavedMovies() {
+function SavedMovies({movies, savedMovies, onSearchMovies}) {
   return (
     <div className='movies'>
-      <SearchForm />
+      <SearchForm 
+        movies={movies}
+        onSearchMovies={onSearchMovies}/>
       <Preloader />
-      <MoviesCardList />
+      <MoviesCardList 
+        movies={movies}
+        savedMovies={savedMovies}/>
     </div>
   )
 };
