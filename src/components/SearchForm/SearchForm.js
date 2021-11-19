@@ -2,20 +2,16 @@ import React, { useState } from "react";
 import './SearchForm.css';
 import Lupa from "../../images/Lupa.svg";
 import FindButton from "../../images/FindButton.svg";
-import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import useFormWithValidation from "../../hooks/useFormVaildation";
-import { useLocation } from "react-router-dom";
-
-function SearchForm({movies, savedMovies, onSearchMovies, setCheckboxFilter}) {
 
 
-  const handleFilter = (evt) => {
+function SearchForm({ isSaved, onSearchMovies, onSearchSavedMovies, setCheckboxFilter }) {
+
+
+  const handleChangeFilter = (evt) => {
     setCheckboxFilter(evt.target.checked);
   }
-  
 
   const[movieValue, setMovieValue] = useState('');
-  const location = useLocation().pathname;
 
   const handleMovieOnChange = (evt) => {
     setMovieValue(evt.target.value);
@@ -26,10 +22,16 @@ function SearchForm({movies, savedMovies, onSearchMovies, setCheckboxFilter}) {
     onSearchMovies(movieValue);
     setMovieValue('');
   }
+
+  const handleSavedSubmit = (evt) => {
+    evt.preventDefault();
+    onSearchSavedMovies(movieValue);
+    setMovieValue('');
+  }
   
   return (
     <section className='search-form'>
-      <form className='search-form__form' onSubmit={handleSubmit}>
+      <form className='search-form__form' onSubmit={isSaved ? handleSavedSubmit : handleSubmit}>
         <div className='search-form__container'>
           <img className='search-form__lupa' alt="Лупа" src={Lupa} />
           <input className='search_form__input' type="text" 
@@ -43,7 +45,7 @@ function SearchForm({movies, savedMovies, onSearchMovies, setCheckboxFilter}) {
        </form>
        <div className='chechbox'>
         <label className='chechbox__toggle'>
-          <input onChange={handleFilter} className='chechbox__input' type='checkbox' defaultChecked />
+          <input onChange={handleChangeFilter} className='chechbox__input' type='checkbox' />
           <span className='chechbox__span'></span>
         </label>
       <p className='chechbox__text'>Короткометражки</p>

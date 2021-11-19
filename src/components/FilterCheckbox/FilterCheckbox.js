@@ -1,11 +1,14 @@
 import "./FilterCheckbox.css";
 
-function FilterCheckbox({ handleFilter, setCheckboxFilter, checkboxFilter }) {
+function FilterCheckbox({ handleFilter, setCheckboxFilter, checkboxFilter}) {
 
   const handleChangeFilter = (evt) => {
-    setCheckboxFilter(!checkboxFilter);
-    handleFilter(evt.target.checked);
+    setCheckboxFilter(evt.target.checked);
   }
+
+
+ 
+  
 
   return (
     <div className='chechbox'>

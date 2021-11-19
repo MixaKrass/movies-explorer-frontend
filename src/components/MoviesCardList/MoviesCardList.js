@@ -6,7 +6,7 @@ import More from "../More/More";
 import { useLocation } from "react-router-dom";
 import { useState } from 'react';
 
-function MoviesCardList({movies, savedMovies, isSaved}) {
+function MoviesCardList({movies, savedMovies, isSaved, savedMovieInFavourite}) {
   
   const [currentUserBox, setCurrentUserBox] = useState([]);
   const { pathname } = useLocation();
@@ -16,9 +16,10 @@ function MoviesCardList({movies, savedMovies, isSaved}) {
               return (
                     <MoviesCard
                       isSaved = {isSaved}
-                      key={isSaved ? movie._id : movie.id}
+                      key={isSaved ? movie.movieId : movie.id}
                       movie={movie}
                       savedMovies={savedMovies}
+                      savedMovieInFavourite={savedMovieInFavourite}
                     />
               )
             })}

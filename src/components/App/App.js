@@ -36,7 +36,7 @@ function App() {
 
   
   
-  const handleChangeFilter =() => {
+  const handleFilter = () => {
     setCheckboxFilter(!checkboxFilter);
   }
 
@@ -121,10 +121,10 @@ function App() {
   }
 
   // поиск фильмов  
-  const handleSearchMovies = (movieValue) => {
+  const handleSearchMovies = (movieText) => {
     setLoadMovies(true);
     if (movies.length > 0) {
-      const result = searchMovies(movies, movieValue)
+      const result = searchMovies(movies, movieText)
       if (result.length > 0) {
         console.log('1');
       } else {
@@ -136,7 +136,7 @@ function App() {
         .then((res) => {
           setMovies(res);
           localStorage.setItem('movies', JSON.stringify(res));
-          const result = searchMovies(res, movieValue)
+          const result = searchMovies(res, movieText)
           if (result.length > 0) {
             console.log('3');
           } else {
@@ -156,10 +156,10 @@ function App() {
     }
   }
 
-  const searchMovies = (films, movieValue) => {
+  const searchMovies = (films, movieText) => {
     let res = [];
     films.forEach((movie) => {
-      if (movie.nameRU.toLowerCase().indexOf(movieValue.toLowerCase()) > -1) {
+      if (movie.nameRU.toLowerCase().indexOf(movieText.toLowerCase()) > -1) {
         res.push(movie)
       }
     })
@@ -179,6 +179,7 @@ function App() {
 
     // сохранение фильма
     const savedMovieInFavourite = (movie) => {
+      setLoadMovies(true);
       mainApi.savedMovie({ movie })
       .then((res) => {
         const films = [...savedMovies, res];
@@ -189,15 +190,15 @@ function App() {
     }
 
     //поиск по сохранённым фильмам
-    const handleSearchSavedMovies = (movieValue) => {
+    const handleSearchSavedMovies = (movieText) => {
       if (savedMovies.length > 0) {
-        setFilterSavedMovies(searchMovies(savedMovies, movieValue));
+        setFilterSavedMovies(searchMovies(savedMovies, movieText));
       } else {
         mainApi.getMovies()
           .then((res) => {
             setSavedMovies(res);
             localStorage.setItem('savedMovies', JSON.stringify(res));
-            setFilterSavedMovies(searchMovies(savedMovies, movieValue));
+            setFilterSavedMovies(searchMovies(savedMovies, movieText));
           })
       }
     }
@@ -249,25 +250,27 @@ function App() {
             loggedIn={loggedIn} 
             component={MoviesPage}
             checkboxFilter={checkboxFilter}
-            setFilter={handleChangeFilter}
+            setFilter={handleFilter}
             movies={checkboxFilter ? filterTimeMovies : filterMovie}
             onSearchMovies={handleSearchMovies}
             loadMovies={loadMovies}
             savedMovieInFavourite={savedMovieInFavourite}
+            onSearchSavedMovies={handleSearchSavedMovies}
+            savedMovies={savedMovies}
             setCheckboxFilter={setCheckboxFilter}
-            handleSearchSavedMovies={handleSearchSavedMovies}
           />
           <ProtectedRoute exact path="/saved-movies"
             loggedIn={loggedIn} 
             checkboxFilter={checkboxFilter}
-            setFilter={handleChangeFilter}
+            setFilter={handleFilter}
             movies={checkboxFilter ? filterSavedTimeMovies : filterSavedMovies}
             component={SavedMoviesPage}
-            onSearchMovies={handleSearchMovies}
+            handleSearchMovies={handleSearchMovies}
             loadMovies={loadMovies}
             savedMovieInFavourite={savedMovieInFavourite}
+            onSearchSavedMovies={handleSearchSavedMovies}
+            savedMovies={savedMovies}
             setCheckboxFilter={setCheckboxFilter}
-            handleSearchSavedMovies={handleSearchSavedMovies}
           /> 
             <ProtectedRoute 
               exact 
