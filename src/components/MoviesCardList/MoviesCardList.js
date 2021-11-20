@@ -1,16 +1,15 @@
 import React from "react";
 import './MoviesCardList.css';
-import { Switch, Route } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import More from "../More/More";
-import { useLocation } from "react-router-dom";
-import { useState } from 'react';
+import Preloader from "../Preloader/Preloader";
 
-function MoviesCardList({movies, savedMovies, isSaved, savedMovieInFavourite}) {
+
+
+function MoviesCardList({movies, savedMovies, isSaved, savedMovieInFavourite, loadMovies}) {
   
-  const [currentUserBox, setCurrentUserBox] = useState([]);
-  const { pathname } = useLocation();
   return (
+    <section >
+    <Preloader loadMovies={loadMovies} />
         <ul className='movies-list'>
             {movies.map((movie) => {
               return (
@@ -23,20 +22,8 @@ function MoviesCardList({movies, savedMovies, isSaved, savedMovieInFavourite}) {
                     />
               )
             })}
-                  
-                    
-                  
-                
-             
         </ul>
-      /*  <section>
-          <Switch>
-            <Route exact path='/movies'>
-              <More />
-            </Route>
-          </Switch>
-        </section> */
-      
+        </section>
   )
 }
 

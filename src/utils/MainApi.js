@@ -37,18 +37,21 @@ class Api {
   }
 
   // отправить информацию
-  patchProfileInfo(userData) {
+  patchProfileInfo({name, email}) {
     const newConfing = {
       ...this._confing,
       method: 'PATCH',
-      body: JSON.stringify(userData),
+      body: JSON.stringify({
+        name: name,
+        email: email
+      })
     };
     return fetch(`${this._baseUrl}/users/me`, newConfing)
     .then(this._checkError);
   }
 
   // сохраняем фильм
-  savedMovie(movie) {
+  savedMovie({movie}) {
     const newConfing = {
       ...this._confing,
       method: 'POST',

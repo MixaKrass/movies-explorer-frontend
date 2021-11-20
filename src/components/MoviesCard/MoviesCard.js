@@ -17,7 +17,7 @@ import { useLocation } from "react-router-dom";
     nameRU: movie.nameRU || 'не указано',
     nameEN: movie.nameEN || 'не указано',
     thumbnail: isSaved ? movie.thumbnail : `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-    movieId: isSaved ? movie._id : movie.id,
+    id: movie.id,
   }
 
 

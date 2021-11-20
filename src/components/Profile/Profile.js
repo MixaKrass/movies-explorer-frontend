@@ -1,49 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import './Profile.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 // import useFormWithValidation from "../../hooks/useFormVaildation";
 
 function Profile({handleUpdateUser, handleLogout}) {
-  const [nameValue, setNameValue] = useState('')
-  const [emailValue, setEmailValue] = useState('')
-  const currentUser = React.useContext(CurrentUserContext);
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const currentUser = useContext(CurrentUserContext);
 
  useEffect(() => {
-  setEmailValue(currentUser.email);
-    setNameValue(currentUser.name);
+    setName(currentUser.name);
+    setEmail(currentUser.email);
   }, [currentUser])
   
 
   const onChangeName = (e) => {
-    setNameValue(e.target.value)
+    setName(e.target.value)
   }
   const onChangeEmail = (e) => {
-    setEmailValue(e.target.value)
+    setEmail(e.target.value)
   }
   
 
-  //const { values, handleChange } = useFormWithValidation({ email, name });
-  //const [ hasChanges, setHasChanged ] = useState(false);
-
   const onEditSubmit = (e) => {
     e.preventDefault();
-    handleUpdateUser( nameValue, emailValue )
+    handleUpdateUser({name, email})
   }
 
   return (
     <section className='profile'>
       <div className='profile__container'>
-        <h1 className='profile__title'>Привет, {nameValue}!</h1>
+        <h1 className='profile__title'>Привет, {name}!</h1>
         <form className='profile__form' onSubmit={onEditSubmit}>
           <label className='profile__label'>
             Имя
               <input 
                 className='profile__input' 
-                placeholder={nameValue}
+                placeholder='Имя'
                 id='name' 
                 name='name'
                 onChange={onChangeName}
-                value={nameValue || ''}
+                value={name || ''}
                 type='text'
                 minLength='2'
                 maxLength='40'
@@ -54,11 +51,11 @@ function Profile({handleUpdateUser, handleLogout}) {
             Email
               <input 
                 className='profile__input' 
-                placeholder={emailValue}
+                placeholder='email'
                 id='email' 
                 name='email'
                 onChange={onChangeEmail}
-                value={emailValue || ''}
+                value={email || ''}
                 type='email'
                 minLength='2'
                 maxLength='40'

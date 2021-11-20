@@ -8,3 +8,21 @@
   box-sizing: border-box;
   align-items: center;
 }
+
+.movies__btn{
+  font-size: 12px;
+  line-height: 15px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  width: 320px;
+  height: 36px;
+  border: none;
+  background-color: #F9F9F9;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.movies__btn_dslb{
+  display: none;
+}

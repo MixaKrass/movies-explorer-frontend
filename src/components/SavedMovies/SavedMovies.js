@@ -1,18 +1,23 @@
 import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
-import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-function SavedMovies({movies, savedMovies, onSearchMovies}) {
+function SavedMovies({movies, savedMovies, onSearchMovies, loadMovies, onSearchSavedMovies}) {
   return (
     <div className='movies'>
       <SearchForm 
-        movies={movies}
-        onSearchMovies={onSearchMovies}/>
-      <Preloader />
+        onSearchMovies={onSearchMovies}
+        onSearchSavedMovies={onSearchSavedMovies}
+        isSaved={true}
+        />
       <MoviesCardList 
-        movies={movies}
-        savedMovies={savedMovies}/>
+      movies={movies}
+        savedMovies={savedMovies}
+        loadMovies={loadMovies}
+        isSaved={true}
+        onSearchSavedMovies={onSearchSavedMovies}
+        
+        />
     </div>
   )
 };

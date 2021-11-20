@@ -33,7 +33,7 @@ function App() {
   const [checkboxFilter, setCheckboxFilter] = useState(false); // фильтрация
   const [filterTimeMovies, setFilterTimeMovies] = useState([]); //короткометражки
   const [filterSavedTimeMovies, setFilterSavedTimeMovies] = useState([]); //короткометражки сохранённые
-
+  const [profileError, setProfileError] = useState('');
   
   
   const handleFilter = () => {
@@ -111,7 +111,7 @@ function App() {
   }
 
   // обработчик информации о пользователе
-  const handleUpdateUser = (name, email) => {
+  const handleUpdateUser = ({name, email}) => {
     mainApi.patchProfileInfo({name, email})
     .then((data) => {
       console.log(data)
@@ -154,6 +154,9 @@ function App() {
           }
         })
     }
+    setTimeout(() => {
+      setLoadMovies(false);
+    }, 300)
   }
 
   const searchMovies = (films, movieText) => {
@@ -194,6 +197,7 @@ function App() {
       if (savedMovies.length > 0) {
         setFilterSavedMovies(searchMovies(savedMovies, movieText));
       } else {
+        setLoadMovies(true)
         mainApi.getMovies()
           .then((res) => {
             setSavedMovies(res);
@@ -201,6 +205,9 @@ function App() {
             setFilterSavedMovies(searchMovies(savedMovies, movieText));
           })
       }
+      setTimeout(() => {
+        setLoadMovies(false);
+      }, 300)
     }
 
 
@@ -279,6 +286,9 @@ function App() {
               component={ProfilePage}
               handleLogout={handleLogout}
               handleUpdateUser={handleUpdateUser}
+              profileError={profileError}
+              setProfileError={setProfileError}
+              
             />
             <Route exact path="/signup">
               {!loggedIn ? (
