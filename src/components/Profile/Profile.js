@@ -8,10 +8,7 @@ function Profile({handleUpdateUser, handleLogout}) {
   const [email, setEmail] = useState('')
   const currentUser = useContext(CurrentUserContext);
 
- useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email);
-  }, [currentUser])
+ 
   
 
   const onChangeName = (e) => {

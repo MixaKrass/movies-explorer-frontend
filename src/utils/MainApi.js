@@ -21,7 +21,7 @@ class Api {
   // получить фильмы
   getMovies() {
     this._updateToken();
-    return fetch(`${this._baseUrl}/movies`, this._confing)
+    return fetch(`${this._baseUrl}/movies`, {method: 'GET'}, this._confing)
     .then(
       this._checkError
     );
@@ -30,7 +30,7 @@ class Api {
   // получить информацию о профиле
   getUserInfo() {
     this._updateToken();
-    return fetch(`${this._baseUrl}/users/me`, this._confing)
+    return fetch(`${this._baseUrl}/users/me`, {method: 'GET'}, this._confing)
     .then(
       this._checkError
     );

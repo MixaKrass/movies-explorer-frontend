@@ -20,9 +20,6 @@ import SavedMoviesPage from '../SavedMoviesPage/SavedMoviesPage';
 function App() {
   const history = useHistory();
   const location = useLocation();
-  const jwt = localStorage.getItem('jwt');
-  const firstMovies = localStorage.getItem('movies');
-  const savedFirstMovies = localStorage.getItem('savedMovies');
   const [loggedIn, setLoggedIn] = useState(false);
   const [movies, setMovies] = useState([]); //массив всех фильмов
   const [filterMovie, setFilterMovie] = useState([]); //фильтрация фильмов по слову
@@ -34,6 +31,8 @@ function App() {
   const [filterTimeMovies, setFilterTimeMovies] = useState([]); //короткометражки
   const [filterSavedTimeMovies, setFilterSavedTimeMovies] = useState([]); //короткометражки сохранённые
   const [profileError, setProfileError] = useState('');
+  const [notFoundError, setNotFoundError] = useState('false');
+  const [serverError, setServerError] = useState('false');
   
   
   const handleFilter = () => {
@@ -42,6 +41,9 @@ function App() {
 
 // проверка jwt  
  useEffect(() => {
+  const jwt = localStorage.getItem('jwt');
+  const firstMovies = localStorage.getItem('movies');
+  const savedFirstMovies = localStorage.getItem('savedMovies');
     if (jwt) {
       if (firstMovies) {
         const res = JSON.parse(firstMovies)
@@ -60,22 +62,13 @@ function App() {
           }
       })
       .catch((err) => {
-        console.log(err);
+        setServerError(true)
         history.push('/signin');
       })
     }
   }, [loggedIn]);
 
- useEffect(() => {
-    if(loggedIn) {
-      Promise.all([mainApi.getUserInfo(), mainApi.getMovies()])
-      .then(([userData, moviesData]) => {
-        setCurrentUser(userData.data);
-        setSavedMovies(moviesData.data);
-      })
-      .catch((err) => console.log(err));
-    }
-  }, [loggedIn]);
+ 
   
 
   // обработчик авторизации
@@ -86,6 +79,18 @@ function App() {
         localStorage.setItem('jwt', data.token);
         setLoggedIn(true)
         history.push('/movies');
+        mainApi.getMovies(data.token)
+          .then((movies) => {
+            setSavedMovies(movies);
+            setFilterSavedMovies(movies);
+            localStorage.setItem('savedMovies', JSON.stringify(movies));
+          })
+          .catch((err) => console.log(err));
+        mainApi.getUserInfo(data.token)
+          .then((user) => {
+            setCurrentUser(user);
+          })
+          .catch((err) => {setServerError(true)})
       }
     })
     .catch((err) => console.log(err));
@@ -126,9 +131,9 @@ function App() {
     if (movies.length > 0) {
       const result = searchMovies(movies, movieText)
       if (result.length > 0) {
-        console.log('1');
+        setNotFoundError(false);
       } else {
-        console.log('2');
+        setNotFoundError(true);
       }
       setFilterMovie(result);
     } else {
@@ -138,17 +143,17 @@ function App() {
           localStorage.setItem('movies', JSON.stringify(res));
           const result = searchMovies(res, movieText)
           if (result.length > 0) {
-            console.log('3');
+            setNotFoundError(false);
           } else {
-            console.log('4');
+            setNotFoundError(true);
           }
           setFilterMovie(result);
           if (checkboxFilter) {
             const resTimeFilter = timeFilter(res);
             if (resTimeFilter.length > 0) {
-              console.log('5');
+              setNotFoundError(false);
             } else {
-              console.log('6');
+              setNotFoundError(true);
             }
             setFilterTimeMovies(resTimeFilter);
           }
@@ -187,7 +192,13 @@ function App() {
       .then((res) => {
         const films = [...savedMovies, res];
         localStorage.setItem('savedMovies', JSON.stringify(films));
-        setSavedMovies(prev => [...prev, res]);
+        setSavedMovies(i => [...i, res]);
+        if (checkboxFilter) {
+          setFilterSavedTimeMovies(i => [...i, res]);
+          setFilterSavedMovies(i => [...i, res]);
+        } else {
+          setFilterSavedMovies(i => [...i, res]);
+        }
       })
       .catch((err) => console.log(err));
     }
@@ -210,38 +221,60 @@ function App() {
       }, 300)
     }
 
+   
 
     //удаление фильма
     const handleDeleteSavedMovies = (id) => {
-      mainApi.removedMovie({ id})
+      setLoadMovies(true);
+      mainApi.removedMovie({id})
       .then(() => {
-
+        const res = filterMoviesById(savedMovies, id);
+        setSavedMovies(res);
+        localStorage.setItem('savedMovies', JSON.stringify(res));
+        setFilterSavedMovies(filterMoviesById(filterSavedMovies, id))
+        setFilterSavedTimeMovies(filterMoviesById(filterTimeMovies, id))
       })
+      setTimeout(() => {
+        setLoadMovies(false);
+      }, 300)
     }
    
+    const filterMoviesById = (films, id) => {
+      return films.filter((film) => {
+        return film._id !== id
+      });
+    }
+
     useEffect(() => {
+      setNotFoundError(false);
       if (checkboxFilter) {
         if (location.pathname === '/movies') {
           if (movies.length > 0) {
             const res = timeFilter(filterMovie);
             if (res.length > 0) {
-              console.log('7');
+              setNotFoundError(false);
             } else {
-              console.log('8');
+              setNotFoundError(true);
             }
             setFilterTimeMovies(res);
           }
         } else if (location.pathname === '/saved-movies') {
           const res = timeFilter(filterSavedMovies);
           if (res.length > 0) {
-            console.log('9');
+            setNotFoundError(false);
           } else {
-            console.log('10');
+            setNotFoundError(true);
           }
           setFilterSavedTimeMovies(res);
         }
       }
     }, [checkboxFilter])
+
+    useEffect(() => {
+      if (location.pathname === '/saved-movies') {
+        setFilterSavedMovies(savedMovies);
+      }
+    }, [location.pathname])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -265,6 +298,7 @@ function App() {
             onSearchSavedMovies={handleSearchSavedMovies}
             savedMovies={savedMovies}
             setCheckboxFilter={setCheckboxFilter}
+            notFoundError={notFoundError}
           />
           <ProtectedRoute exact path="/saved-movies"
             loggedIn={loggedIn} 
@@ -278,6 +312,7 @@ function App() {
             onSearchSavedMovies={handleSearchSavedMovies}
             savedMovies={savedMovies}
             setCheckboxFilter={setCheckboxFilter}
+            notFoundError={notFoundError}
           /> 
             <ProtectedRoute 
               exact 

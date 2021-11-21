@@ -2,7 +2,7 @@ import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-function SavedMovies({movies, savedMovies, onSearchMovies, loadMovies, onSearchSavedMovies}) {
+function SavedMovies({movies, savedMovies, onSearchMovies, loadMovies, onSearchSavedMovies, savedMovieInFavourite}) {
   return (
     <div className='movies'>
       <SearchForm 
@@ -11,11 +11,12 @@ function SavedMovies({movies, savedMovies, onSearchMovies, loadMovies, onSearchS
         isSaved={true}
         />
       <MoviesCardList 
-      movies={movies}
+        movies={movies}
         savedMovies={savedMovies}
         loadMovies={loadMovies}
         isSaved={true}
-        onSearchSavedMovies={onSearchSavedMovies}
+        savedMovieInFavourite={savedMovieInFavourite}
+
         
         />
     </div>

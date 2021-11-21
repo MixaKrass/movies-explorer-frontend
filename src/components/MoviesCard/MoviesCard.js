@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './MoviesCard.css';
 import { useLocation } from "react-router-dom";
+import Movies from "../Movies/Movies";
 
 
  function MoviesCard({ movie, isSaved, savedMovie, savedMovieInFavourite }) {
@@ -17,7 +18,7 @@ import { useLocation } from "react-router-dom";
     nameRU: movie.nameRU || 'не указано',
     nameEN: movie.nameEN || 'не указано',
     thumbnail: isSaved ? movie.thumbnail : `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-    id: movie.id,
+    movieId: isSaved ? movie._id : movie.id,
   }
 
 
@@ -41,7 +42,7 @@ import { useLocation } from "react-router-dom";
   
   
   return (
-      <div className='moviesCard'>
+      <div className='moviesCard' id={isSaved ? movie._id : movie.id} >
           <div className='moviesCard__info'>
             <h2 className='moviesCard__title'>
             {movie.nameRU}
@@ -54,7 +55,10 @@ import { useLocation } from "react-router-dom";
               }
             </div>
           <div className='moviesCard__container'>
-          <img src={`https://api.nomoreparties.co${movie.image.url}`} className='moviesCard__image' alt='кадр из фильма'  />
+            <a className='moviesCard__link' href={isSaved ? movie.trailer : movie.trailerLink} target='_blank' rel='noreferrer'>
+              <img src={isSaved ? movie.image: `https://api.nomoreparties.co${movie.image.url}`} className='moviesCard__image' alt='кадр из фильма'  />
+            </a>
+          
         </div>
       </div>
   )
