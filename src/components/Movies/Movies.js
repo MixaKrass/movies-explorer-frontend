@@ -4,11 +4,9 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 
-function Movies({movies, onSearchSavedMovies, savedMovies, loadMovies, setFilter, savedMovieInFavourite, handleDeleteSavedMovies, onSearchMovies, checkboxFilter, setCheckboxFilter}) {
+function Movies({movies, onSearchSavedMovies, savedMovies, loadMovies, savedMovieInFavourite, handleDeleteSavedMovies, onSearchMovies, checkboxFilter, setCheckboxFilter}) {
   
-  const handleFilter = () => {
-    setFilter();
-  }
+
   
   const addFilmsToMore = () => {
     setMovieWindow(prevState => prevState + hiddenFilms);

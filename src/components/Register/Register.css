@@ -85,6 +85,10 @@
   margin-top: 69px;
 }
 
+.register__btn_dslb{
+  background-color: grey;
+}
+
 .register__btn:hover{
   cursor: pointer;
 }

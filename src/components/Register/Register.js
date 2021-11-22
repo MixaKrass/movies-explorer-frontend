@@ -2,31 +2,28 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
 import "./Register.css"
+import useFormWithValidation from "../../hooks/useFormVaildation";
 
-function Register({onRegister}) {
+function Register({onRegister, registerError, setRegisterError}) {
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [name, setName] = useState('')
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  }
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  }
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  }
+  const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password, name);
-    onRegister({email, password, name});
+    onRegister({ email: values.email, password: values.password, name:values.name });
+    console.log(values.email, values.password, values.name)
   }
 
+  const handleChangeInput = (e) => {
+    handleChange(e);
+    if (registerError.length > 0) {
+      setRegisterError('')
+    }
+  }
+
+  const handleReserForm = () => {
+    resetForm();
+  }
 
   return (
     <>
@@ -38,17 +35,17 @@ function Register({onRegister}) {
         <h3 className='register__title'>Добро пожаловать!</h3>
         <form className='register__form' onSubmit={handleSubmit} >
           <label className='register__label' htmlFor='name'>Имя</label>
-          <input className='register__input' type='text' id='name' onChange={handleNameChange} value={name} />
-          <span className='register__error'>Текст ошибки</span>
+          <input className='register__input' type='text' id='name' name='name' pattern='[а-яА-Яa-zAz-ёЁ\- ]{1,}' onChange={handleChangeInput} value={values.name} minLength='2' maxLength='30' required/>
+          <span className='register__error'>{errors.name}</span>
           <label className='register__label' htmlFor='email'>Email</label>
-          <input className='register__input' type='email' id='signup-email' onChange={handleEmailChange} value={email} />
-          <span className='register__error'>Текст ошибки</span>
+          <input className='register__input' type='email' id='signup-email' name='email' onChange={handleChangeInput} value={values.email} maxLength='40' required/>
+          <span className='register__error'>{errors.email}</span>
           <label className='register__label' htmlFor='password'>Пароль</label>
-          <input className='register__input' type='password' id='signup-password' onChange={handlePasswordChange} value={password} />
-          <span className='register__error'>Текст ошибки</span>
-          <button className='register__btn' type='submit' onClick={handleSubmit} >Зарегестрироваться</button>
+          <input className='register__input' type='password' id='signup-password' name='password' onChange={handleChangeInput} value={values.password} minLength='8' required/>
+          <span className='register__error'>{errors.password}</span>
+          <button className={isValid ? 'register__btn' : 'register__btn register__btn_dslb'} type='submit' disabled={!isValid}>Зарегестрироваться</button>
         </form>
-        <p className='register__text'>Уже зарегестрированы? <Link to ='/signin' className='register__link'>Войти</Link></p>
+        <p className='register__text'>Уже зарегестрированы? <Link to ='/signin' className='register__link' onClick={handleReserForm}>Войти</Link></p>
       </div>
     </section>
     </>

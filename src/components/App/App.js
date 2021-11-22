@@ -31,6 +31,8 @@ function App() {
   const [filterTimeMovies, setFilterTimeMovies] = useState([]); //короткометражки
   const [filterSavedTimeMovies, setFilterSavedTimeMovies] = useState([]); //короткометражки сохранённые
   const [profileError, setProfileError] = useState('');
+  const [registerError, setRegisterError] = useState('');
+  const [loginError, setLoginError] = useState('');
   const [notFoundError, setNotFoundError] = useState('false');
   const [serverError, setServerError] = useState('false');
   
@@ -99,7 +101,7 @@ function App() {
 
   // обработчик регистрации
   const onRegister = ({email, password, name}) => {
-    console.log(email, password, name)
+    console.log({email, password, name})
     auth.register({email, password, name}) 
     .then(() => {
         history.push('/signin');
@@ -129,8 +131,12 @@ function App() {
     .then((data) => {
       console.log(data)
       setCurrentUser(data);
+      setProfileError('Обновление успешно')
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      setProfileError('Обновление НЕ успешно')
+    });
   }
 
   // поиск фильмов  
@@ -335,14 +341,18 @@ function App() {
               loggedIn={loggedIn}
               component={ProfilePage}
               handleLogout={handleLogout}
-              handleUpdateUser={handleUpdateUser}
+              handleUpdateProfile={handleUpdateUser}
               profileError={profileError}
               setProfileError={setProfileError}
               
             />
             <Route exact path="/signup">
               {!loggedIn ? (
-                <Register onRegister={onRegister} />
+                <Register 
+                  onRegister={onRegister} 
+                  registerError={registerError}
+                  setRegisterError={setRegisterError}
+                />
               ) : (
                 <Redirect to='/movies' />
               )}

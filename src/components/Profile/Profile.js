@@ -1,33 +1,36 @@
 import React, { useEffect, useState, useContext } from "react";
 import './Profile.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-// import useFormWithValidation from "../../hooks/useFormVaildation";
+import useFormWithValidation from "../../hooks/useFormVaildation";
 
-function Profile({handleUpdateUser, handleLogout}) {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
+function Profile({handleUpdateProfile, handleLogout, profileError, setProfileError}) {
+
+  const {values, handleChange, errors, isValid, resetForm, setValues} = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
 
+
+
+  const onChange = (e) => {
+    handleChange(e);
+    if (profileError.length > 0) {
+      setProfileError('');
+    }
+  }
  
-  
-
-  const onChangeName = (e) => {
-    setName(e.target.value)
-  }
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value)
-  }
-  
-
   const onEditSubmit = (e) => {
     e.preventDefault();
-    handleUpdateUser({name, email})
+    handleUpdateProfile({name: values.name, email: values.email});
+    resetForm();
   }
+
+  useEffect(() => {
+    setValues(currentUser);
+  }, [currentUser, setValues]);
 
   return (
     <section className='profile'>
       <div className='profile__container'>
-        <h1 className='profile__title'>Привет, {name}!</h1>
+        <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
         <form className='profile__form' onSubmit={onEditSubmit}>
           <label className='profile__label'>
             Имя
@@ -36,8 +39,8 @@ function Profile({handleUpdateUser, handleLogout}) {
                 placeholder='Имя'
                 id='name' 
                 name='name'
-                onChange={onChangeName}
-                value={name || ''}
+                onChange={onChange}
+           //    value={values.name || ''}
                 type='text'
                 minLength='2'
                 maxLength='40'
@@ -51,8 +54,8 @@ function Profile({handleUpdateUser, handleLogout}) {
                 placeholder='email'
                 id='email' 
                 name='email'
-                onChange={onChangeEmail}
-                value={email || ''}
+                onChange={onChange}
+             //   value={values.email || ''}
                 type='email'
                 minLength='2'
                 maxLength='40'
