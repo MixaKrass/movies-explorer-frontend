@@ -5,7 +5,7 @@ import Preloader from "../Preloader/Preloader";
 
 
 
-function MoviesCardList({movies, savedMovies, isSaved, savedMovieInFavourite, loadMovies}) {
+function MoviesCardList({movies, savedMovies, isSaved, savedMovieInFavourite, handleDeleteSavedMovies, loadMovies}) {
   
   return (
     <section >
@@ -13,12 +13,13 @@ function MoviesCardList({movies, savedMovies, isSaved, savedMovieInFavourite, lo
         <ul className='movies-list'>
             {movies.map((movie) => {
               return (
-                    <MoviesCard
-                      isSaved = {isSaved}
-                      key={isSaved ? movie.movieId : movie.id}
+                    <MoviesCard 
                       movie={movie}
                       savedMovies={savedMovies}
+                      key={isSaved ? movie.movieId : movie.id}
+                      isSaved = {isSaved}
                       savedMovieInFavourite={savedMovieInFavourite}
+                      handleDeleteSavedMovies={handleDeleteSavedMovies}
                     />
               )
             })}

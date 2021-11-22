@@ -4,7 +4,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 
-function Movies({movies, onSearchSavedMovies, savedMovies, loadMovies, savedMovieInFavourite, onSearchMovies, checkboxFilter, setCheckboxFilter}) {
+function Movies({movies, onSearchSavedMovies, savedMovies, loadMovies, savedMovieInFavourite, handleDeleteSavedMovies, onSearchMovies, checkboxFilter, setCheckboxFilter}) {
   
   
   const addFilmsToMore = () => {
@@ -65,6 +65,7 @@ function Movies({movies, onSearchSavedMovies, savedMovies, loadMovies, savedMovi
         checkboxFilter={checkboxFilter}
         loadMovies={loadMovies}
         savedMovies={savedMovies}
+        handleDeleteSavedMovies={handleDeleteSavedMovies}
       />
       <button type='button' onClick={addFilmsToMore} className={moviesVisible.length === movies.length ? 'movies__btn movies__btn_dslb' : 'movies__btn'}>Ещё</button>
     </div>

@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './MoviesCard.css';
-import { useLocation } from "react-router-dom";
-import Movies from "../Movies/Movies";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 
- function MoviesCard({ movie, isSaved, savedMovie, savedMovieInFavourite }) {
+ function MoviesCard({ movie, isSaved, savedMovies, savedMovieInFavourite, handleDeleteSavedMovies }) {
  
-
+  const [isMovieSaved, setIsMovieSaved] = useState(false);
+  const currentUser = useContext(CurrentUserContext);
+  const savingMovie = savedMovies.find((item) => item.nameRU === movie.nameRU && item.owner === currentUser._id);
   const film = {
     country: movie.country || 'не указано',
     director: movie.director || 'не указано',
@@ -21,18 +22,19 @@ import Movies from "../Movies/Movies";
     movieId: isSaved ? movie._id : movie.id,
   }
 
-
-  const { pathname } = useLocation();
-  const [isMovieSaved, setIsMovieSaved] = useState(false);
-
   const movieButterHandler = () => {
     if(isMovieSaved) {
-      console.log('1')
-    } else {
+      const filmForSearch = savedMovies.find((item) => item.movieId === movie.id);
+      handleDeleteSavedMovies(filmForSearch._id);
+    } else { 
       savedMovieInFavourite(film);
     }
     setIsMovieSaved(!isMovieSaved);
   };
+
+  const deleteCard = () => {
+    handleDeleteSavedMovies(movie._id);
+  }
 
   const time = (duration) => {
     const minutes = duration % 60;
@@ -40,7 +42,12 @@ import Movies from "../Movies/Movies";
     return hours > 0 ? `${hours}ч ${minutes}м` : `${minutes}м`;
   }; 
   
-  
+ useEffect(() => {
+    if(savingMovie) {
+      setIsMovieSaved(true);
+    }
+  }, [savingMovie])
+
   return (
       <div className='moviesCard' id={isSaved ? movie._id : movie.id} >
           <div className='moviesCard__info'>
@@ -48,10 +55,12 @@ import Movies from "../Movies/Movies";
             {movie.nameRU}
             </h2>
             <p className='moviesCard__duration'>{time(movie.duration)}</p>
-            { pathname === '/movies' ? 
-              <button className={`moviesCard__save ${isMovieSaved ? 'moviesCard__save_saved' : ''}`} 
-              onClick={movieButterHandler} /> :
-              <button className='moviesCard__delete' />
+            { isSaved ? 
+              <button type='button' className='moviesCard__delete' 
+                onClick={deleteCard} /> :
+              <button type='button' className={`moviesCard__save ${isMovieSaved ? 'moviesCard__save_saved' : ''}`} 
+                onClick={movieButterHandler} /> 
+              
               }
             </div>
           <div className='moviesCard__container'>

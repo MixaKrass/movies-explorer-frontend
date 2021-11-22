@@ -74,12 +74,12 @@ class Api {
   }
 
   // удаляем фильм
-  removedMovie(movieId) {
+  removedMovie({id}) {
     const newConfing = {
       ...this._confing,
       method: 'DELETE',
     };
-    return fetch(`${this._baseUrl}/movies/${movieId}`, newConfing)
+    return fetch(`${this._baseUrl}/movies/${id}`, newConfing)
     .then(this._checkError);
   }
 }

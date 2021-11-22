@@ -201,7 +201,12 @@ function App() {
         }
       })
       .catch((err) => console.log(err));
+      setTimeout(() => {
+        setLoadMovies(false);
+      }, 300)
     }
+
+
 
     //поиск по сохранённым фильмам
     const handleSearchSavedMovies = (movieText) => {
@@ -274,7 +279,7 @@ function App() {
       if (location.pathname === '/saved-movies') {
         setFilterSavedMovies(savedMovies);
       }
-    }, [location.pathname])
+    })
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -297,6 +302,7 @@ function App() {
             savedMovieInFavourite={savedMovieInFavourite}
             onSearchSavedMovies={handleSearchSavedMovies}
             savedMovies={savedMovies}
+            handleDeleteSavedMovies={handleDeleteSavedMovies}
             setCheckboxFilter={setCheckboxFilter}
             notFoundError={notFoundError}
           />
@@ -311,6 +317,7 @@ function App() {
             savedMovieInFavourite={savedMovieInFavourite}
             onSearchSavedMovies={handleSearchSavedMovies}
             savedMovies={savedMovies}
+            handleDeleteSavedMovies={handleDeleteSavedMovies}
             setCheckboxFilter={setCheckboxFilter}
             notFoundError={notFoundError}
           /> 
