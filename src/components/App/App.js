@@ -110,8 +110,16 @@ function App() {
   // обработчик завершения
   const handleLogout = () => {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('movies');
+    localStorage.removeItem('savedMovies');
     setCurrentUser({});
     setLoggedIn(false);
+    setMovies([]);
+    setSavedMovies([]);
+    setFilterSavedTimeMovies([]);
+    setFilterTimeMovies([]);
+    setFilterSavedMovies([]);
+    setFilterMovie([]);
     history.push('/');
   }
 
