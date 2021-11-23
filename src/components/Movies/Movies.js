@@ -4,11 +4,9 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 
-function Movies({movies, onSearchSavedMovies, savedMovies, loadMovies, savedMovieInFavourite, handleDeleteSavedMovies, onSearchMovies, checkboxFilter, setCheckboxFilter}) {
+function Movies({movies, onSearchSavedMovies, savedMovies, loadMovies, savedMovieInFavourite, handleDeleteSavedMovies, onSearchMovies, checkboxFilter, setCheckboxFilter, notFoundError, serverError}) {
   
-
-  
-  const addFilmsToMore = () => {
+    const addFilmsToMore = () => {
     setMovieWindow(prevState => prevState + hiddenFilms);
     console.log('hello')
   }
@@ -67,6 +65,8 @@ function Movies({movies, onSearchSavedMovies, savedMovies, loadMovies, savedMovi
         loadMovies={loadMovies}
         savedMovies={savedMovies}
         handleDeleteSavedMovies={handleDeleteSavedMovies}
+        notFoundError={notFoundError}
+        serverError={serverError}
       />
       <button type='button' onClick={addFilmsToMore} className={moviesVisible.length === movies.length ? 'movies__btn movies__btn_dslb' : 'movies__btn'}>Ещё</button>
     </div>

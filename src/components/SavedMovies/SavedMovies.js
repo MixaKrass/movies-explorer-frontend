@@ -2,7 +2,7 @@ import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-function SavedMovies({movies, savedMovies, onSearchMovies, loadMovies, setCheckboxFilter, onSearchSavedMovies, savedMovieInFavourite, handleDeleteSavedMovies}) {
+function SavedMovies({movies, savedMovies, onSearchMovies, loadMovies, setCheckboxFilter, onSearchSavedMovies, savedMovieInFavourite, handleDeleteSavedMovies, notFoundError, serverError}) {
   return (
     <div className='movies'>
       <SearchForm 
@@ -18,8 +18,8 @@ function SavedMovies({movies, savedMovies, onSearchMovies, loadMovies, setCheckb
         isSaved={true}
         savedMovieInFavourite={savedMovieInFavourite}
         handleDeleteSavedMovies={handleDeleteSavedMovies}
-
-        
+        notFoundError={notFoundError}
+        serverError={serverError}
         />
     </div>
   )

@@ -149,6 +149,7 @@ function App() {
 
   // поиск фильмов  
   const handleSearchMovies = (movieText) => {
+    setServerError(false);
     setLoadMovies(true);
     if (movies.length > 0) {
       const result = searchMovies(movies, movieText)
@@ -180,6 +181,7 @@ function App() {
             setFilterTimeMovies(resTimeFilter);
           }
         })
+        .catch((err) => setServerError(true));
     }
     setTimeout(() => {
       setLoadMovies(false);
@@ -222,7 +224,7 @@ function App() {
           setFilterSavedMovies(i => [...i, res]);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setServerError(true));
       setTimeout(() => {
         setLoadMovies(false);
       }, 300)
@@ -232,6 +234,7 @@ function App() {
 
     //поиск по сохранённым фильмам
     const handleSearchSavedMovies = (movieText) => {
+      setServerError(false)
       if (savedMovies.length > 0) {
         setFilterSavedMovies(searchMovies(savedMovies, movieText));
       } else {
@@ -242,12 +245,12 @@ function App() {
             localStorage.setItem('savedMovies', JSON.stringify(res));
             setFilterSavedMovies(searchMovies(savedMovies, movieText));
           })
-      }
+          .catch((err) => setServerError(true));
       setTimeout(() => {
         setLoadMovies(false);
       }, 300)
     }
-
+  }
    
 
     //удаление фильма
@@ -261,6 +264,7 @@ function App() {
         setFilterSavedMovies(filterMoviesById(filterSavedMovies, id))
         setFilterSavedTimeMovies(filterMoviesById(filterTimeMovies, id))
       })
+      .catch((err) => setServerError(true));
       setTimeout(() => {
         setLoadMovies(false);
       }, 300)
@@ -327,6 +331,7 @@ function App() {
             handleDeleteSavedMovies={handleDeleteSavedMovies}
             setCheckboxFilter={setCheckboxFilter}
             notFoundError={notFoundError}
+            serverError={serverError}
           />
           <ProtectedRoute exact path="/saved-movies"
             loggedIn={loggedIn} 
@@ -342,6 +347,7 @@ function App() {
             handleDeleteSavedMovies={handleDeleteSavedMovies}
             setCheckboxFilter={setCheckboxFilter}
             notFoundError={notFoundError}
+            serverError={serverError}
           /> 
             <ProtectedRoute 
               exact 
@@ -352,7 +358,6 @@ function App() {
               handleUpdateProfile={handleUpdateUser}
               profileError={profileError}
               setProfileError={setProfileError}
-              
             />
             <Route exact path="/signup">
               {!loggedIn ? (
