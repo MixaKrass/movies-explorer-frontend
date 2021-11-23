@@ -1,26 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
 import "./Login.css"
+import useFormWithValidation from "../../hooks/useFormVaildation";
 
-function Login({onLogin}) {
+function Login({onLogin, loginError, setLoginError}) {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
-  
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  }
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  }
 
   const handleSubmit = (e) => {
   e.preventDefault();
-  onLogin(email, password);
+  onLogin({email: values.email, password: values.password});
+  console.log(values.email, values.password);
+}
+
+const handleChangeInput = (e) => {
+  handleChange(e);
+  if (loginError.length > 0) {
+    setLoginError('')
+  }
+}
+
+const handleReserForm = () => {
+  resetForm();
 }
 
   return (
@@ -33,14 +36,14 @@ function Login({onLogin}) {
         <h3 className='login__title'>Рады видеть!</h3>
         <form className='login__form' onSubmit={handleSubmit} >
           <label className='login__label' htmlFor='email'>Email</label>
-          <input className='login__input' onChange={handleEmailChange} type='email' id='signin-email' required />
-          <span className='login__error'>Текст ошибки</span>
+          <input className='login__input' onChange={handleChangeInput} type='email' name='email' id='signin-email' value={values.email} maxLength='40' required />
+          <span className='login__error'>{errors.email}</span>
           <label className='login__label' htmlFor='password'>Пароль</label>
-          <input className='login__input' onChange={handlePasswordChange} type='password' id='signin-password' required />
-          <span className='login__error'>Текст ошибки</span>
-          <button className='login__btn' type='submit'>Войти</button>
+          <input className='login__input' onChange={handleChangeInput} type='password' name='password' id='signin-password' value={values.password} minLength='8' required />
+          <span className='login__error'>{errors.password}</span>
+          <button className={isValid ? 'login__btn' : 'login__btn login__btn_dslb'}  type='submit'>Войти</button>
         </form>
-        <p className='login__text'>Ещё не зарегестрированы? <Link to ='/signup' className='login__link'>Регистрация</Link></p>
+        <p className='login__text'>Ещё не зарегестрированы? <Link to ='/signup' className='login__link' onClick={handleReserForm} >Регистрация</Link></p>
       </div>
     </section>
     </>

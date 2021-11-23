@@ -62,7 +62,6 @@
 }
 
 .register__error{
-  display: none;
   font-family: 'Inter';
   font-size: 10px;
   line-height: 12px;

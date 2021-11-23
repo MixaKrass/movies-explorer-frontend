@@ -58,7 +58,7 @@
 }
 
 .login__error{
-  display: none;
+  font-family: 'Inter';
   font-size: 10px;
   line-height: 12px;
   font-weight: 400;
@@ -77,6 +77,10 @@
   line-height: 17px;
   font-weight: 500;
   margin-top: 179px;
+}
+
+.login__btn_dslb{
+  background-color: grey;
 }
 
 .login__btn:hover{

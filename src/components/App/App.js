@@ -30,9 +30,9 @@ function App() {
   const [checkboxFilter, setCheckboxFilter] = useState(false); // фильтрация
   const [filterTimeMovies, setFilterTimeMovies] = useState([]); //короткометражки
   const [filterSavedTimeMovies, setFilterSavedTimeMovies] = useState([]); //короткометражки сохранённые
-  const [profileError, setProfileError] = useState('');
   const [registerError, setRegisterError] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [profileError, setProfileError] = useState('');
   const [notFoundError, setNotFoundError] = useState('false');
   const [serverError, setServerError] = useState('false');
   
@@ -359,7 +359,11 @@ function App() {
             </Route>
             <Route exact path="/signin">
               {!loggedIn ? (
-              <Login onLogin={onLogin} />
+              <Login 
+                onLogin={onLogin}
+                loginError={loginError}
+                setLoginError={setLoginError}
+              />
               ) : (
                 <Redirect to='/movies' />
               )}
