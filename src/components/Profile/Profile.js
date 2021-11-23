@@ -32,36 +32,35 @@ function Profile({handleUpdateProfile, handleLogout, profileError, setProfileErr
       <div className='profile__container'>
         <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
         <form className='profile__form' onSubmit={onEditSubmit}>
-          <label className='profile__label'>
-            Имя
-              <input 
-                className='profile__input' 
-                placeholder='Имя'
-                id='name' 
-                name='name'
-                onChange={onChange}
-           //    value={values.name || ''}
-                type='text'
-                minLength='2'
-                maxLength='40'
-                required
-              />
-          </label>
-          <label className='profile__label'>
-            Email
-              <input 
-                className='profile__input' 
-                placeholder='email'
-                id='email' 
-                name='email'
-                onChange={onChange}
-             //   value={values.email || ''}
-                type='email'
-                minLength='2'
-                maxLength='40'
-                required
-              />
-          </label>
+          <label className='profile__label'>Имя</label>
+          <input 
+            className='profile__input' 
+            placeholder='Имя'
+            id='name' 
+            name='name'
+            onChange={onChange}
+            value={values.name || ''}
+            type='text'
+            minLength='2'
+            maxLength='40'
+            required
+          />
+          <span className='profile__error'>{errors.name}</span>
+          <label className='profile__label'>Email</label>
+          <input 
+            className='profile__input' 
+            placeholder='email'
+            id='email' 
+            name='email'
+            onChange={onChange}
+            value={values.email || ''}
+            type='email'
+            minLength='2'
+            maxLength='40'
+            required
+          />
+          <span className='profile__error'>{errors.email}</span>
+          
           <button className='profile__btn-edit' type='submit'>
             Редактировать
           </button>

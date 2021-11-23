@@ -27,12 +27,15 @@ export const authorization = ({email, password}) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({email, password})
+    body: JSON.stringify({
+      "email": email, 
+      "password": password
+    })
   })
   .then(res => {
+    console.log({email, password})
     if (res.ok) {
       return res.json();
     } else {

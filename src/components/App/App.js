@@ -20,6 +20,7 @@ import SavedMoviesPage from '../SavedMoviesPage/SavedMoviesPage';
 function App() {
   const history = useHistory();
   const location = useLocation();
+  const [token, setToken] = useState('')
   const [loggedIn, setLoggedIn] = useState(false);
   const [movies, setMovies] = useState([]); //массив всех фильмов
   const [filterMovie, setFilterMovie] = useState([]); //фильтрация фильмов по слову
@@ -47,6 +48,7 @@ function App() {
   const firstMovies = localStorage.getItem('movies');
   const savedFirstMovies = localStorage.getItem('savedMovies');
     if (jwt) {
+      setToken(jwt);
       if (firstMovies) {
         const res = JSON.parse(firstMovies)
         setMovies(res);
@@ -58,10 +60,8 @@ function App() {
       }
       auth.tokenCheck(jwt)
         .then((res) => {
-          if (res) {
             setLoggedIn(true);
             setCurrentUser(res);
-          }
       })
       .catch((err) => {
         setServerError(true)
@@ -74,28 +74,36 @@ function App() {
   
 
   // обработчик авторизации
-   const onLogin = (email, password) => {
-    auth.authorization (email, password)
+   const onLogin = ({email, password}) => {
+    auth.authorization ({email, password})
     .then((data) => {
       if(data.token){
+        setToken(data.token);
         localStorage.setItem('jwt', data.token);
         setLoggedIn(true)
         history.push('/movies');
-        mainApi.getMovies(data.token)
-          .then((movies) => {
-            setSavedMovies(movies);
-            setFilterSavedMovies(movies);
-            localStorage.setItem('savedMovies', JSON.stringify(movies));
-          })
+      mainApi.getMovies(data.token)
+        .then((movies) => {
+          setSavedMovies(movies);
+          setFilterSavedMovies(movies);
+          localStorage.setItem('savedMovies', JSON.stringify(movies));
+        })
           .catch((err) => console.log(err));
-        mainApi.getUserInfo(data.token)
-          .then((user) => {
-            setCurrentUser(user);
-          })
+      mainApi.getUserInfo(data.token)
+        .then((user) => {
+          setCurrentUser(user);
+        })
           .catch((err) => {setServerError(true)})
       }
     })
     .catch((err) => console.log(err));
+    if (loggedIn) {
+      mainApi.getUserInfo()
+        .then((user) => {
+          setCurrentUser(user);
+        })
+        .catch((err) => console.log(err));
+    }
   } 
 
 
@@ -127,7 +135,7 @@ function App() {
 
   // обработчик информации о пользователе
   const handleUpdateUser = ({name, email}) => {
-    mainApi.patchProfileInfo({name, email})
+    mainApi.patchProfileInfo({ name, email})
     .then((data) => {
       console.log(data)
       setCurrentUser(data);
@@ -245,7 +253,7 @@ function App() {
     //удаление фильма
     const handleDeleteSavedMovies = (id) => {
       setLoadMovies(true);
-      mainApi.removedMovie({id})
+      mainApi.removedMovie({ id})
       .then(() => {
         const res = filterMoviesById(savedMovies, id);
         setSavedMovies(res);

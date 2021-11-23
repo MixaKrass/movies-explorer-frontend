@@ -36,10 +36,10 @@ const handleReserForm = () => {
         <h3 className='login__title'>Рады видеть!</h3>
         <form className='login__form' onSubmit={handleSubmit} >
           <label className='login__label' htmlFor='email'>Email</label>
-          <input className='login__input' onChange={handleChangeInput} type='email' name='email' id='signin-email' value={values.email} maxLength='40' required />
+          <input className='login__input' onChange={handleChangeInput} type='email' name='email'  value={values.email || ''} maxLength='40' required />
           <span className='login__error'>{errors.email}</span>
           <label className='login__label' htmlFor='password'>Пароль</label>
-          <input className='login__input' onChange={handleChangeInput} type='password' name='password' id='signin-password' value={values.password} minLength='8' required />
+          <input className='login__input' onChange={handleChangeInput} type='password' name='password'  value={values.password || ''} minLength='8' required />
           <span className='login__error'>{errors.password}</span>
           <button className={isValid ? 'login__btn' : 'login__btn login__btn_dslb'}  type='submit'>Войти</button>
         </form>

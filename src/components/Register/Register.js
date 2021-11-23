@@ -35,13 +35,13 @@ function Register({onRegister, registerError, setRegisterError}) {
         <h3 className='register__title'>Добро пожаловать!</h3>
         <form className='register__form' onSubmit={handleSubmit} >
           <label className='register__label' htmlFor='name'>Имя</label>
-          <input className='register__input' type='text' id='name' name='name' pattern='[а-яА-Яa-zAz-ёЁ\- ]{1,}' onChange={handleChangeInput} value={values.name} minLength='2' maxLength='30' required/>
+          <input className='register__input' type='text' id='name' name='name' pattern='[а-яА-Яa-zAz-ёЁ\- ]{1,}' onChange={handleChangeInput} value={values.name || ''} minLength='2' maxLength='30' required/>
           <span className='register__error'>{errors.name}</span>
           <label className='register__label' htmlFor='email'>Email</label>
-          <input className='register__input' type='email' id='signup-email' name='email' onChange={handleChangeInput} value={values.email} maxLength='40' required/>
+          <input className='register__input' type='email'  name='email' onChange={handleChangeInput} value={values.email || ''} maxLength='40' required/>
           <span className='register__error'>{errors.email}</span>
           <label className='register__label' htmlFor='password'>Пароль</label>
-          <input className='register__input' type='password' id='signup-password' name='password' onChange={handleChangeInput} value={values.password} minLength='8' required/>
+          <input className='register__input' type='password' name='password' onChange={handleChangeInput} value={values.password || ''} minLength='8' required/>
           <span className='register__error'>{errors.password}</span>
           <button className={isValid ? 'register__btn' : 'register__btn register__btn_dslb'} type='submit' disabled={!isValid}>Зарегестрироваться</button>
         </form>

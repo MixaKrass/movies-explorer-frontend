@@ -56,6 +56,14 @@
   border: none;
 }
 
+.profile__error{
+  font-family: 'Inter';
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
+  color: #FF3055;
+}
+
 .profile__btn-edit{
   font-family: 'Inter';
   margin-top: 220px;

@@ -9,7 +9,7 @@ function Footer() {
         <li className='footer__year'>&copy; 2021</li>
           <ul className='footer__links'>
             <li className='footer__links-item'>
-              <a href='#' className='footer__link' targer='_blank'>Яндекс.Практикум</a>
+              <a href='https://practicum.yandex.ru/profile/web' className='footer__link' targer='_blank'>Яндекс.Практикум</a>
             </li>
             <li className='footer__links-item'>
               <a href='https://github.com/MixaKrass' className='footer__link' targer='_blank'>Github</a>
