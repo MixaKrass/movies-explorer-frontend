@@ -4,7 +4,7 @@ import logo from "../../images/logo.svg"
 import "./Register.css"
 import useFormWithValidation from "../../hooks/useFormVaildation";
 
-function Register({onRegister, registerError, setRegisterError}) {
+function Register({onRegister, registerError, setRegisterError, clearErrors}) {
 
   const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
@@ -23,6 +23,7 @@ function Register({onRegister, registerError, setRegisterError}) {
 
   const handleReserForm = () => {
     resetForm();
+    clearErrors();
   }
 
   return (

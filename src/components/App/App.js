@@ -65,6 +65,7 @@ function App() {
       })
       .catch((err) => {
         setServerError(true)
+        setProfileError('Не удалось загрузить данные')
         history.push('/signin');
       })
     }
@@ -102,7 +103,11 @@ function App() {
         .then((user) => {
           setCurrentUser(user);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => 
+    {setLoginError('Что-то пошло не так');
+    if (err === 400) return setLoginError('Некорректно заполнено одно из полей');
+    if (err === 401) return setLoginError('пользователь с таким E-mail не существует')
+    });
     }
   } 
 
@@ -114,7 +119,11 @@ function App() {
     .then(() => {
         history.push('/signin');
     })
-    .catch((err) => console.log(err));
+    .catch((err) => 
+    {setRegisterError('Что-то пошло не так');
+    if (err === 400) return setRegisterError('Некорректно заполнено одно из полей');
+    if (err ===409) return setRegisterError('пользователь с таким E-mail уже зарегистрирован')
+    });
   }
 
   // обработчик завершения
@@ -130,7 +139,16 @@ function App() {
     setFilterTimeMovies([]);
     setFilterSavedMovies([]);
     setFilterMovie([]);
+    clearErrors();
     history.push('/');
+  }
+
+  const clearErrors = () => {
+    setNotFoundError(false);
+    setServerError(false);
+    setRegisterError('');
+    setLoginError('');
+    setProfileError('');
   }
 
   // обработчик информации о пользователе
@@ -332,6 +350,7 @@ function App() {
             setCheckboxFilter={setCheckboxFilter}
             notFoundError={notFoundError}
             serverError={serverError}
+            clearErrors={clearErrors}
           />
           <ProtectedRoute exact path="/saved-movies"
             loggedIn={loggedIn} 
@@ -348,6 +367,7 @@ function App() {
             setCheckboxFilter={setCheckboxFilter}
             notFoundError={notFoundError}
             serverError={serverError}
+            clearErrors={clearErrors}
           /> 
             <ProtectedRoute 
               exact 
@@ -365,6 +385,7 @@ function App() {
                   onRegister={onRegister} 
                   registerError={registerError}
                   setRegisterError={setRegisterError}
+                  clearErrors={clearErrors}
                 />
               ) : (
                 <Redirect to='/movies' />
@@ -376,6 +397,7 @@ function App() {
                 onLogin={onLogin}
                 loginError={loginError}
                 setLoginError={setLoginError}
+                clearErrors={clearErrors}
               />
               ) : (
                 <Redirect to='/movies' />

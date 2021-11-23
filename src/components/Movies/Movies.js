@@ -4,8 +4,12 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 
-function Movies({movies, onSearchSavedMovies, savedMovies, loadMovies, savedMovieInFavourite, handleDeleteSavedMovies, onSearchMovies, checkboxFilter, setCheckboxFilter, notFoundError, serverError}) {
+function Movies({movies, onSearchSavedMovies, savedMovies, loadMovies, savedMovieInFavourite, handleDeleteSavedMovies, onSearchMovies, checkboxFilter, setCheckboxFilter, notFoundError, serverError, clearErrors}) {
   
+    useEffect(() => {
+      clearErrors();
+    }, [])
+
     const addFilmsToMore = () => {
     setMovieWindow(prevState => prevState + hiddenFilms);
     console.log('hello')

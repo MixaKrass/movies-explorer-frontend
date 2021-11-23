@@ -4,7 +4,7 @@ import logo from "../../images/logo.svg"
 import "./Login.css"
 import useFormWithValidation from "../../hooks/useFormVaildation";
 
-function Login({onLogin, loginError, setLoginError}) {
+function Login({onLogin, loginError, setLoginError, clearErrors}) {
 
   const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
@@ -24,6 +24,7 @@ const handleChangeInput = (e) => {
 
 const handleReserForm = () => {
   resetForm();
+  clearErrors();
 }
 
   return (
