@@ -61,7 +61,7 @@ function Profile({handleUpdateProfile, handleLogout, profileError, setProfileErr
           />
           <span className='profile__error'>{errors.email}</span>
           
-          <button className='profile__btn-edit' type='submit'>
+          <button className={ isValid ? 'profile__btn-edit' : 'profile__btn-edit profile__btn-edit_dslb'}  type='submit'>
             Редактировать
           </button>
           <button className='profile__btn-logout' type='button' onClick={handleLogout}>

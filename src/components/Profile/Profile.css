@@ -74,6 +74,10 @@
   background-color: #fff;
 }
 
+.profile__btn-edit_dslb{
+  color: grey;
+}
+
 .profile__btn-logout{
   font-family: 'Inter';
   border: none;
