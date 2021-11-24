@@ -73,6 +73,7 @@ class Api {
     return fetch(`${this._baseUrl}/movies`, newConfing)
     .then(this._checkError);
   }
+  
 
   // удаляем фильм
   removedMovie({id}) {

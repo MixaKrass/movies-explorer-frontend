@@ -92,32 +92,6 @@ function App() {
       })
     }
   }
- /*
- 
-  const onLogin = ({email, password}) => {
-    return auth.authorization (email, password)
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem('jwt', data.token);
-        setLoggedIn(true)
-        history.push('/movies');
-        tokenCheck();
-        mainApi.getMovies(data.token)
-        .then((movies) => {
-          setSavedMovies(movies);
-          setFilterSavedMovies(movies);
-          localStorage.setItem('savedMovies', JSON.stringify(movies));
-        })
-        .catch((err) => console.log(err));
-      }
-    })
-    .catch((err) => 
-    {setLoginError('Что-то пошло не так');
-    if (err === 400) return setLoginError('Некорректно заполнено одно из полей');
-    if (err === 401) return setLoginError('пользователь с таким E-mail не существует')
-    });
-  }
-*/
 
 
   // обработчик авторизации
