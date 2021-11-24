@@ -15,6 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import MoviesPage from '../MoviesPage/MoviesPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import SavedMoviesPage from '../SavedMoviesPage/SavedMoviesPage';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 
 function App() {
@@ -48,13 +49,20 @@ function App() {
 
   useEffect(() => {
     if(loggedIn) {
-      mainApi.getUserInfo()
-        .then((data) => {
-          setCurrentUser(data)
-        })
+      const token = localStorage.getItem('jwt');
+      Promise.all([mainApi.getUserInfo(token), mainApi.getMovies(token)])
+      .then(([userData, moviesData]) => {
+        setCurrentUser(userData);
+        const userSavedMovies = moviesData.filter((movie) => {
+          return movie.owner === userData._id;
+        });
+        setSavedMovies(userSavedMovies);
+        localStorage.setItem('savedMovies', JSON.stringify(movies));
+      })
         .catch((err) => console.log(err))
     }
   }, [loggedIn]);
+
 
 // проверка jwt  
  const tokenCheck = () => {
@@ -121,13 +129,7 @@ function App() {
         localStorage.setItem('jwt', data.token);
         setLoggedIn(true)
         history.push('/movies');
-      mainApi.getMovies(data.token)
-        .then((movies) => {
-          setSavedMovies(movies);
-          setFilterSavedMovies(movies);
-          localStorage.setItem('savedMovies', JSON.stringify(movies));
-        })
-          .catch((err) => console.log(err));
+
       auth.tokenCheck(data.token)
         .then((user) => {
           setCurrentUser(user);
@@ -308,11 +310,11 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    if (location === '/saved-movies') {
+  React.useEffect(() => {
+    if (location.pathname === '/saved-movies') {
       setFilterSavedMovies(savedMovies);
     }
-  })
+  }, [location])
    
 
     //удаление фильма
