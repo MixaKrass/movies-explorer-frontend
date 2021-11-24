@@ -20,8 +20,8 @@ import SavedMoviesPage from '../SavedMoviesPage/SavedMoviesPage';
 function App() {
   const history = useHistory();
   const location = useLocation();
-  const [token, setToken] = useState('')
   const [loggedIn, setLoggedIn] = useState(false);
+  const [token, setToken] = useState('');
   const [movies, setMovies] = useState([]); //массив всех фильмов
   const [filterMovie, setFilterMovie] = useState([]); //фильтрация фильмов по слову
   const [currentUser, setCurrentUser] = useState({});
@@ -42,8 +42,22 @@ function App() {
     setCheckboxFilter(!checkboxFilter);
   }
 
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  useEffect(() => {
+    if(loggedIn) {
+      mainApi.getUserInfo()
+        .then((data) => {
+          setCurrentUser(data)
+        })
+        .catch((err) => console.log(err))
+    }
+  }, [loggedIn]);
+
 // проверка jwt  
- useEffect(() => {
+ const tokenCheck = () => {
   const jwt = localStorage.getItem('jwt');
   const firstMovies = localStorage.getItem('movies');
   const savedFirstMovies = localStorage.getItem('savedMovies');
@@ -60,8 +74,8 @@ function App() {
       }
       auth.tokenCheck(jwt)
         .then((res) => {
-            setLoggedIn(true);
-            setCurrentUser(res);
+          setCurrentUser(res);
+          setLoggedIn(true);
       })
       .catch((err) => {
         setServerError(true)
@@ -69,14 +83,38 @@ function App() {
         history.push('/signin');
       })
     }
-  }, [loggedIn]);
-
+  }
+ /*
  
-  
+  const onLogin = ({email, password}) => {
+    return auth.authorization (email, password)
+    .then((data) => {
+      if (data.token) {
+        localStorage.setItem('jwt', data.token);
+        setLoggedIn(true)
+        history.push('/movies');
+        tokenCheck();
+        mainApi.getMovies(data.token)
+        .then((movies) => {
+          setSavedMovies(movies);
+          setFilterSavedMovies(movies);
+          localStorage.setItem('savedMovies', JSON.stringify(movies));
+        })
+        .catch((err) => console.log(err));
+      }
+    })
+    .catch((err) => 
+    {setLoginError('Что-то пошло не так');
+    if (err === 400) return setLoginError('Некорректно заполнено одно из полей');
+    if (err === 401) return setLoginError('пользователь с таким E-mail не существует')
+    });
+  }
+*/
+
 
   // обработчик авторизации
    const onLogin = ({email, password}) => {
-    auth.authorization ({email, password})
+     auth.authorization (email, password)
     .then((data) => {
       if(data.token){
         setToken(data.token);
@@ -90,7 +128,7 @@ function App() {
           localStorage.setItem('savedMovies', JSON.stringify(movies));
         })
           .catch((err) => console.log(err));
-      mainApi.getUserInfo(data.token)
+      auth.tokenCheck(data.token)
         .then((user) => {
           setCurrentUser(user);
         })
@@ -99,7 +137,7 @@ function App() {
     })
     .catch((err) => console.log(err));
     if (loggedIn) {
-      mainApi.getUserInfo()
+      auth.tokenCheck()
         .then((user) => {
           setCurrentUser(user);
         })
@@ -153,7 +191,7 @@ function App() {
 
   // обработчик информации о пользователе
   const handleUpdateUser = ({name, email}) => {
-    mainApi.patchProfileInfo({ name, email})
+    mainApi.patchProfileInfo({ token, name, email})
     .then((data) => {
       console.log(data)
       setCurrentUser(data);
@@ -230,16 +268,16 @@ function App() {
     // сохранение фильма
     const savedMovieInFavourite = (movie) => {
       setLoadMovies(true);
-      mainApi.savedMovie({ movie })
+      mainApi.savedMovie({ token, movie })
       .then((res) => {
         const films = [...savedMovies, res];
         localStorage.setItem('savedMovies', JSON.stringify(films));
-        setSavedMovies(i => [...i, res]);
+        setSavedMovies(prev => [...prev, res]);
         if (checkboxFilter) {
-          setFilterSavedTimeMovies(i => [...i, res]);
-          setFilterSavedMovies(i => [...i, res]);
+          setFilterSavedTimeMovies(prev => [...prev, res]);
+          setFilterSavedMovies(prev => [...prev, res]);
         } else {
-          setFilterSavedMovies(i => [...i, res]);
+          setFilterSavedMovies(prev => [...prev, res]);
         }
       })
       .catch((err) => setServerError(true));
@@ -269,12 +307,18 @@ function App() {
       }, 300)
     }
   }
+
+  useEffect(() => {
+    if (location === '/saved-movies') {
+      setFilterSavedMovies(savedMovies);
+    }
+  })
    
 
     //удаление фильма
     const handleDeleteSavedMovies = (id) => {
       setLoadMovies(true);
-      mainApi.removedMovie({ id})
+      mainApi.removedMovie({ token, id})
       .then(() => {
         const res = filterMoviesById(savedMovies, id);
         setSavedMovies(res);
@@ -319,11 +363,7 @@ function App() {
       }
     }, [checkboxFilter])
 
-    useEffect(() => {
-      if (location.pathname === '/saved-movies') {
-        setFilterSavedMovies(savedMovies);
-      }
-    })
+  
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

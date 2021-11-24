@@ -6,7 +6,7 @@ function SavedMovies({movies, savedMovies, onSearchMovies, loadMovies, setCheckb
 
   useEffect(() => {
     clearErrors();
-  }, [])
+  }, []);
 
   return (
     <div className='movies'>

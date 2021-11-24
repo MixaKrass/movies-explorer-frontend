@@ -1,3 +1,4 @@
+
 export const BASE_URL = 'https://api.mixakras.films.nomoredomains.club';
 
 class Api {
@@ -21,7 +22,7 @@ class Api {
   // получить фильмы
   getMovies() {
     this._updateToken();
-    return fetch(`${this._baseUrl}/movies`, {method: 'GET'}, this._confing)
+    return fetch(`${this._baseUrl}/movies`,  this._confing)
     .then(
       this._checkError
     );
@@ -30,7 +31,7 @@ class Api {
   // получить информацию о профиле
   getUserInfo() {
     this._updateToken();
-    return fetch(`${this._baseUrl}/users/me`, {method: 'GET'}, this._confing)
+    return fetch(`${this._baseUrl}/users/me`,  this._confing)
     .then(
       this._checkError
     );
@@ -92,7 +93,20 @@ export default new Api({
   }
  })
 
-  /*
+ /*
+   // получить информацию о профиле
+  export const getUserInfo = (token) => {
+    return fetch(`${BASE_URL}/users/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+    .then((res) => checkError(res));
+  };
+
+
 const BASE_URL = 'https://api.mixakras.films.nomoredomains.club';
 
 
@@ -116,17 +130,7 @@ const BASE_URL = 'https://api.mixakras.films.nomoredomains.club';
     .then((res) => checkError(res));
   }
 
-  // получить информацию о профиле
-  export const getUserInfo = (token) => {
-    return fetch(`${BASE_URL}/users/me`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    })
-    .then((res) => checkError(res));
-  };
+
 
   // отправить информацию
   export const patchProfileInfo = ({ token, name, email}) => {

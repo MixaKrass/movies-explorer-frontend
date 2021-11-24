@@ -18,7 +18,7 @@ function MoviesCardList({movies, savedMovies, isSaved, savedMovieInFavourite, ha
                     <MoviesCard 
                       movie={movie}
                       savedMovies={savedMovies}
-                      key={isSaved ? movie.movieId : movie.id}
+                      key={isSaved ? movie._id : movie.id}
                       isSaved = {isSaved}
                       savedMovieInFavourite={savedMovieInFavourite}
                       handleDeleteSavedMovies={handleDeleteSavedMovies}
