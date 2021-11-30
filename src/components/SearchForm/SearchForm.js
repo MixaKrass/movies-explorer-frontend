@@ -2,46 +2,55 @@ import React, { useState } from "react";
 import './SearchForm.css';
 import Lupa from "../../images/Lupa.svg";
 import FindButton from "../../images/FindButton.svg";
+import useFormWithValidation from "../../hooks/useFormVaildation";
 
 
-function SearchForm({ isSaved, onSearchMovies, onSearchSavedMovies, setCheckboxFilter }) {
+function SearchForm({ isSaved, onSearchMovies, onSearchSavedMovies, setCheckboxFilter, loadMovies }) {
 
+  const [error, setError] = useState('');
+  const { values, isValid, handleChange } = useFormWithValidation({
+    search: '',
+  })
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    if (isValid) {
+      onSearchMovies(values.search);
+    } else {
+      setError('Нужно ввеcти ключевое слово.')
+    }
+  }
+
+  const handleSavedSubmit = (evt) => {
+    evt.preventDefault();
+    if (isValid) {
+      onSearchSavedMovies(values.search);
+    } else {
+      setError('Нужно ввеcти ключевое слово.')
+    }
+    
+  }
 
   const handleChangeFilter = (evt) => {
     setCheckboxFilter(evt.target.checked);
   }
 
-  const[movieValue, setMovieValue] = useState('');
-
-  const handleMovieOnChange = (evt) => {
-    setMovieValue(evt.target.value);
-  }
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    onSearchMovies(movieValue);
-    setMovieValue('');
-  }
-
-  const handleSavedSubmit = (evt) => {
-    evt.preventDefault();
-    onSearchSavedMovies(movieValue);
-    setMovieValue('');
-  }
   
   return (
     <section className='search-form'>
-      <form className='search-form__form' onSubmit={isSaved ? handleSavedSubmit : handleSubmit}>
-        <div className='search-form__container'>
+      <form className='search-form__form' onSubmit={isSaved ? handleSavedSubmit : handleSubmit} noValidate>
+        <label htmlFor='search' className='search-form__container'>
           <img className='search-form__lupa' alt="Лупа" src={Lupa} />
           <input className='search_form__input' type="text" 
-           placeholder="Фильм" value={movieValue}
-           onChange={handleMovieOnChange}
-           required />
+          name='search' id='search'
+           placeholder="Фильм" value={values.search || ''}
+           onChange={handleChange}  autoComplete='off'
+           required readOnly={loadMovies} />
+           </label>
+           <span className='search-form__error' id='searchFormError'>{isValid ? '' : `${error}`}</span>
           <button type='submit' className='search-form__button'>
             <img className="search-form__find" alt="Кнопка" src={FindButton} />
           </button>
-        </div>
        </form>
        <div className='chechbox'>
         <label className='chechbox__toggle'>

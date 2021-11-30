@@ -15,6 +15,7 @@ function SavedMovies({movies, savedMovies, onSearchMovies, loadMovies, setCheckb
         onSearchSavedMovies={onSearchSavedMovies}
         setCheckboxFilter={setCheckboxFilter}
         isSaved={true}
+        loadMovies={loadMovies}
         />
       <MoviesCardList 
         movies={movies}

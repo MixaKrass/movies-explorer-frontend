@@ -35,8 +35,8 @@ function App() {
   const [registerError, setRegisterError] = useState('');
   const [loginError, setLoginError] = useState('');
   const [profileError, setProfileError] = useState('');
-  const [notFoundError, setNotFoundError] = useState('false');
-  const [serverError, setServerError] = useState('false');
+  const [notFoundError, setNotFoundError] = useState(false);
+  const [serverError, setServerError] = useState(false);
   
   
   const handleFilter = () => {
@@ -120,7 +120,7 @@ function App() {
         .catch((err) => 
     {setLoginError('Что-то пошло не так');
     if (err === 400) return setLoginError('Некорректно заполнено одно из полей');
-    if (err === 401) return setLoginError('пользователь с таким E-mail не существует')
+    if (err === 401) return setLoginError('Пользователь с таким E-mail не существует')
     });
     }
   } 
@@ -130,13 +130,15 @@ function App() {
   const onRegister = ({email, password, name}) => {
     console.log({email, password, name})
     auth.register({email, password, name}) 
-    .then(() => {
-        history.push('/signin');
+    .then((data) => {
+      if (data._id) {
+        onLogin({email, password})
+      }
     })
     .catch((err) => 
     {setRegisterError('Что-то пошло не так');
     if (err === 400) return setRegisterError('Некорректно заполнено одно из полей');
-    if (err ===409) return setRegisterError('пользователь с таким E-mail уже зарегистрирован')
+    if (err === 409) return setRegisterError('Пользователь с таким E-mail уже зарегистрирован')
     });
   }
 
@@ -166,12 +168,11 @@ function App() {
   }
 
   // обработчик информации о пользователе
-  const handleUpdateUser = ({name, email}) => {
+  const handleUpdateProfile = ({name, email}) => {
     mainApi.patchProfileInfo({ token, name, email})
     .then((data) => {
-      console.log(data)
-      setCurrentUser(data);
-      setProfileError('Обновление успешно')
+        setCurrentUser(data);
+        setProfileError('Обновление успешно');
     })
     .catch((err) => {
       console.log(err);
@@ -239,6 +240,7 @@ function App() {
     })
     return res;
   }
+
 
 
     // сохранение фильма
@@ -391,7 +393,7 @@ function App() {
               loggedIn={loggedIn}
               component={ProfilePage}
               handleLogout={handleLogout}
-              handleUpdateProfile={handleUpdateUser}
+              handleUpdateProfile={handleUpdateProfile}
               profileError={profileError}
               setProfileError={setProfileError}
             />

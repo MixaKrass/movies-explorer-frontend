@@ -24,7 +24,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
   const movieButterHandler = () => {
     if(isMovieSaved) {
-      const filmForSearch = savedMovies.find((item) => item.movieId === movie.id);
+      const filmForSearch = savedMovies.find((item) => item.movieId === String(movie._id));
       handleDeleteSavedMovies(filmForSearch._id);
     } else { 
       savedMovieInFavourite(film);

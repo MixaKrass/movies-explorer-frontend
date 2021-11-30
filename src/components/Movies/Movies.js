@@ -60,6 +60,7 @@ function Movies({movies, onSearchSavedMovies, savedMovies, loadMovies, savedMovi
         setCheckboxFilter={setCheckboxFilter}
         isSaved={false}
         onSearchSavedMovies={onSearchSavedMovies}
+        loadMovies={loadMovies}
       />
       <MoviesCardList 
         movies={moviesVisible}

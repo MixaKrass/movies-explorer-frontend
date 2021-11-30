@@ -41,6 +41,7 @@ function Profile({handleUpdateProfile, handleLogout, profileError, setProfileErr
             onChange={onChange}
             value={values.name || ''}
             type='text'
+            pattern='[а-яА-Яa-zAz-ёЁ\- ]{1,}'
             minLength='2'
             maxLength='40'
             required
@@ -55,15 +56,17 @@ function Profile({handleUpdateProfile, handleLogout, profileError, setProfileErr
             onChange={onChange}
             value={values.email || ''}
             type='email'
+            pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
             minLength='2'
             maxLength='40'
             required
           />
           <span className='profile__error'>{errors.email}</span>
           
-          <button className={ isValid ? 'profile__btn-edit' : 'profile__btn-edit profile__btn-edit_dslb'}  type='submit'>
+          <button className={ isValid ? 'profile__btn-edit' : 'profile__btn-edit profile__btn-edit_dslb'} disabled={!isValid} type='submit'>
             Редактировать
           </button>
+          <span className='profile__error'>{profileError}</span>
           <button className='profile__btn-logout' type='button' onClick={handleLogout}>
           Выйти из аккаунта
           </button>
@@ -74,3 +77,4 @@ function Profile({handleUpdateProfile, handleLogout, profileError, setProfileErr
 }
 
 export default Profile;
+
