@@ -67,7 +67,7 @@ class Api {
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
         thumbnail: movie.thumbnail,
-        movieId: String(movie.id),
+        movieId: String(movie.movieId),
       }),
     };
     return fetch(`${this._baseUrl}/movies`, newConfing)

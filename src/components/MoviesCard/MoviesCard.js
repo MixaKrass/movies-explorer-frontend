@@ -24,7 +24,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
   const movieButterHandler = () => {
     if(isMovieSaved) {
-      const filmForSearch = savedMovies.find((item) => item.movieId === String(movie._id));
+      const filmForSearch = savedMovies.find((item) => item.movieId === String(movie.id));
       handleDeleteSavedMovies(filmForSearch._id);
     } else { 
       savedMovieInFavourite(film);
@@ -56,10 +56,10 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
             </h2>
             <p className='moviesCard__duration'>{time(movie.duration)}</p>
             { isSaved ? 
-              <button type='button' className='moviesCard__delete' 
-                onClick={deleteCard} /> :
-              <button type='button' className={`moviesCard__save ${isMovieSaved ? 'moviesCard__save_saved' : ''}`} 
-                onClick={movieButterHandler} /> 
+              <button type='button' onClick={deleteCard} className={(movie.owner === currentUser._id) ? 'moviesCard__delete' : ''} 
+                 /> :
+              <button type='button'  onClick={movieButterHandler} className={isMovieSaved ? 'moviesCard__save moviesCard__save_saved' : 'moviesCard__save'}
+                /> 
               
               }
             </div>

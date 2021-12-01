@@ -16,9 +16,9 @@ function MoviesCardList({movies, savedMovies, isSaved, savedMovieInFavourite, ha
             {movies.map((movie) => {
               return (
                     <MoviesCard 
+                      key={isSaved ? movie.movieId : movie.id}
                       movie={movie}
                       savedMovies={savedMovies}
-                      key={isSaved ? movie._id : movie.id}
                       isSaved = {isSaved}
                       savedMovieInFavourite={savedMovieInFavourite}
                       handleDeleteSavedMovies={handleDeleteSavedMovies}
