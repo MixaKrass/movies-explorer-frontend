@@ -1,31 +1,33 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import './Profile.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import useFormWithValidation from "../../hooks/useFormVaildation";
 
 function Profile({handleUpdateProfile, handleLogout, profileError, setProfileError}) {
-
-  const {values, handleChange, errors, isValid, resetForm, setValues} = useFormWithValidation();
+  
   const currentUser = useContext(CurrentUserContext);
+  const [isNewUserData, setIsNewUserData] = useState(true);
+  const nameNew = useRef('');
+  const emailNew = useRef('');
+  const {values, handleChange, errors, isValid} = useFormWithValidation({
+    name: nameNew.current.value,
+    email: emailNew.current.value
+  });
 
+  useEffect(() => {
+    setIsNewUserData(nameNew.current.value === currentUser.name && emailNew.current.value === currentUser.email);
+  }, [values.name, values.email, currentUser.name, currentUser.email]);
 
-
-  const onChange = (e) => {
-    handleChange(e);
-    if (profileError.length > 0) {
-      setProfileError('');
-    }
-  }
  
   const onEditSubmit = (e) => {
     e.preventDefault();
-    handleUpdateProfile({name: values.name, email: values.email});
-    resetForm();
+    const name = nameNew.current.value;
+    const email = emailNew.current.value;
+    handleUpdateProfile(name, email);
+    e.target.reset()
   }
 
-  useEffect(() => {
-    setValues(currentUser);
-  }, [currentUser, setValues]);
+ 
 
   return (
     <section className='profile'>
@@ -38,8 +40,9 @@ function Profile({handleUpdateProfile, handleLogout, profileError, setProfileErr
             placeholder='Имя'
             id='name' 
             name='name'
-            onChange={onChange}
-            value={values.name || ''}
+            onChange={handleChange}
+            defaultValue={currentUser.name}
+            ref={nameNew}
             type='text'
             pattern='[а-яА-Яa-zAz-ёЁ\- ]{1,}'
             minLength='2'
@@ -53,8 +56,9 @@ function Profile({handleUpdateProfile, handleLogout, profileError, setProfileErr
             placeholder='email'
             id='email' 
             name='email'
-            onChange={onChange}
-            value={values.email || ''}
+            onChange={handleChange}
+            defaultValue={currentUser.email}
+            ref={emailNew}
             type='email'
             pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
             minLength='2'
@@ -63,7 +67,8 @@ function Profile({handleUpdateProfile, handleLogout, profileError, setProfileErr
           />
           <span className='profile__error'>{errors.email}</span>
           
-          <button className={ isValid ? 'profile__btn-edit' : 'profile__btn-edit profile__btn-edit_dslb'} disabled={!isValid} type='submit'>
+          <button className={`profile__btn-edit ${(isNewUserData || !isValid) ? 'profile__btn-edit_dslb' : ''}`} 
+            disabled={isNewUserData || !isValid} type='submit'>
             Редактировать
           </button>
           <span className='profile__error'>{profileError}</span>

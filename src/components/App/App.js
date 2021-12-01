@@ -168,7 +168,7 @@ function App() {
   }
 
   // обработчик информации о пользователе
-  const handleUpdateProfile = ({name, email}) => {
+  const handleUpdateProfile = (name, email) => {
     mainApi.patchProfileInfo({ token, name, email})
     .then((data) => {
         setCurrentUser(data);
