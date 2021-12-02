@@ -1,41 +1,32 @@
 import React from "react";
 import './MoviesCardList.css';
-import { Switch, Route } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import More from "../More/More";
+import Preloader from "../Preloader/Preloader";
 
-function MoviesCardList() {
+
+
+function MoviesCardList({movies, savedMovies, isSaved, savedMovieInFavourite, handleDeleteSavedMovies, loadMovies, notFoundError, serverError}) {
+  
   return (
-    <>
-      <section className='movies-list'>
-        <Switch>
-          <Route exact path='/movies'>
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-          </Route>
-          <Route exact path='/saved-movies'>
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-          </Route>
-        </Switch>
-      </section>
-      <section>
-        <Switch>
-          <Route exact path='/movies'>
-            <More />
-          </Route>
-        </Switch>
-      </section>
-
-    </>
+    <section >
+    <Preloader loadMovies={loadMovies} />
+    <span className='movies-error'>{notFoundError ? 'Ничего не найдено' : '' }</span>
+    <span className='movies-server-error'>{serverError ? 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' : ''}</span>
+        <ul className='movies-list'>
+            {movies.map((movie) => {
+              return (
+                    <MoviesCard 
+                      key={isSaved ? movie.movieId : movie.id}
+                      movie={movie}
+                      savedMovies={savedMovies}
+                      isSaved = {isSaved}
+                      savedMovieInFavourite={savedMovieInFavourite}
+                      handleDeleteSavedMovies={handleDeleteSavedMovies}
+                    />
+              )
+            })}
+        </ul>
+        </section>
   )
 }
 

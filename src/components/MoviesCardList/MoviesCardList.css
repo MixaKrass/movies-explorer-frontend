@@ -1,3 +1,9 @@
+.movies{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .movies-list{
   display: grid;
   align-content: center;
@@ -9,6 +15,18 @@
   padding: 70px 0 30px;
   box-sizing: border-box;
   width: 100%;
+}
+
+.movies-error{
+  color: red;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.movies-error_dslb{
+  display: none;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1280px) {

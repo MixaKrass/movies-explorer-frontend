@@ -62,7 +62,6 @@
 }
 
 .register__error{
-  display: none;
   font-family: 'Inter';
   font-size: 10px;
   line-height: 12px;
@@ -83,6 +82,10 @@
   line-height: 17px;
   font-weight: 500;
   margin-top: 69px;
+}
+
+.register__btn_dslb{
+  background-color: grey;
 }
 
 .register__btn:hover{
